@@ -45,10 +45,10 @@ class Payment extends CI_Controller {
 		$this->load->view('payment/v_periodic');
 	}
 
-	public function get_siswa_detail(){
-		$id_siswa	= $this->input->get('id');
-		$periode_control_list	= $this->input->get('periode');
-		$data		= $this->payment_model->get_payment_by_siswa($id_siswa, $periode_control_list);
+	public function get_siswa_detail($periode = FALSE, $no_induk = FALSE){
+		/*$no_induk = '09.16.01.001';
+		$periode_control_list = '2019-2020';*/
+		$data		= $this->payment_model->get_payment_by_siswa($no_induk, $periode);
 		// print_r($data);
 		echo json_encode($data);
 	}
@@ -105,8 +105,9 @@ class Payment extends CI_Controller {
 		// print_r($hasil);
 	}
 
-	public function invoice(){
-		
+	public function get_payment_detail($periode = FALSE, $no_induk = FALSE){
+		$this->load->view('template/header');
+		$this->load->view('payment/v_detail');
 	}
 
 }

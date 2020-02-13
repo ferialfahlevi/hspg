@@ -1,82 +1,93 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Login | HSPG - TEBET</title>
-    <!-- Favicon -->
-	<!-- <link rel="shortcut icon" href="<?php echo base_url();?>assets/template/favicon.ico">
-	<link rel="icon" href="<?php echo base_url();?>assets/template/favicon.ico" type="image/x-icon"> -->
-
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo base_url();?>assets/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="<?php echo base_url();?>assets/dashboard/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="<?php echo base_url();?>assets/dashboard/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="<?php echo base_url();?>assets/dashboard/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sign In | HSPG Tebet Dashboard</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form" action="<?php echo base_url('login/do_login');?>" method="post">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Login | HSPG TEBET</title>
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="<?php echo base_url();?>assets/template/favicon.ico">
+        <link rel="icon" href="<?php echo base_url();?>assets/template/favicon.ico" type="image/x-icon">
+        
+        <!-- vector map CSS -->
+        <link href="<?php echo base_url();?>assets/template/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        
+        <!-- Custom CSS -->
+        <link href="<?php echo base_url();?>assets/template/dist/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <!--Preloader-->
+        <div class="preloader-it">
+            <div class="la-anim-1"></div>
         </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="<?php echo base_url();?>assets/dashboard/vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo base_url();?>assets/dashboard/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?php echo base_url();?>assets/dashboard/vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="<?php echo base_url();?>assets/dashboard/dist/js/sb-admin-2.js"></script>
-
-</body>
-
+        <!--/Preloader-->
+        
+        <div class="wrapper pa-0">
+            <header class="sp-header">
+                <div class="sp-logo-wrap pull-left">
+                    <a href="<?php echo base_url();?>">
+                        <img class="brand-img mr-10" src="<?php echo base_url();?>assets/template/dist/img/logo.png" alt="brand"/>
+                        <span class="brand-text">HSPG TEBET</span>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </header>
+            
+            <!-- Main Content -->
+            <div class="page-wrapper pa-0 ma-0 auth-page">
+                <div class="container-fluid">
+                    <!-- Row -->
+                    <div class="table-struct full-width full-height">
+                        <div class="table-cell vertical-align-middle auth-form-wrap">
+                            <div class="auth-form  ml-auto mr-auto no-float">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="mb-30">
+                                            <h3 class="text-center txt-dark mb-10">Sign in to HSPG Tebet Dashboard</h3>
+                                            <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+                                        </div>  
+                                        <div class="form-wrap">
+                                            <form action="<?php echo base_url('login/do_login');?>" method="post">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-10" for="exampleInputEmail_2">Username</label>
+                                                    <input type="text" class="form-control" required="" id="exampleInputEmail_2" name="username" placeholder="Enter username">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
+                                                    <div class="clearfix"></div>
+                                                    <input type="password" class="form-control" required="" id="exampleInputpwd_2" name="password" placeholder="Enter password">
+                                                </div>
+                                                <div class="form-group text-center">
+                                                    <button type="submit" class="btn btn-info btn-rounded">sign in</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Row -->   
+                </div>
+                
+            </div>
+            <!-- /Main Content -->
+        
+        </div>
+        <!-- /#wrapper -->
+        
+        <!-- JavaScript -->
+        
+        <!-- jQuery -->
+        <script src="<?php echo base_url();?>assets/template/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<?php echo base_url();?>assets/template/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url();?>assets/template/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+        
+        <!-- Slimscroll JavaScript -->
+        <script src="<?php echo base_url();?>assets/template/dist/js/jquery.slimscroll.js"></script>
+        
+        <!-- Init JavaScript -->
+        <script src="<?php echo base_url();?>assets/template/dist/js/init.js"></script>
+    </body>
 </html>
