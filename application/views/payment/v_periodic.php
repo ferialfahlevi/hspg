@@ -36,7 +36,7 @@
 									<option>-- Pilih Periode --</option>
 								</select>
 							</a>
-							<a href="#" id="refresh_table" class="pull-left inline-block refresh mr-15">
+							<a href="#" id="refresh_table" class="btn btn-default btn-icon-anim btn-circle btn-sm pull-left inline-block refresh mr-15">
 								<i class="zmdi zmdi-replay"></i>
 							</a>
 						</div>
@@ -195,7 +195,7 @@
 
 					html += '</td>'+
 					'<td></td>'+
-					'<td><a class="btn btn-primary btn-icon-anim btn-circle btn-sm" href="<?php echo base_url('payment/get_payment_detail/');?>'+data[i].periode_control_list+'/'+data[i].no_induk+'" data-toggle="tooltip" data-placement="top" title="Lihat Detail"><i class="fa fa-eye"></i></a</td>'+
+					'<td><a class="btn btn-primary btn-icon-anim btn-circle btn-sm" href="<?php echo base_url('payment/get_payment_detail/');?>'+data[i].periode_control_list+'/'+data[i].no_induk+'" data-toggle="tooltip" data-placement="top" title="Lihat Detail"><i class="fa fa-eye"></i></a></td>'+
 					'</tr>';
 
 				}

@@ -53,6 +53,14 @@ class Payment extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function get_catatan($id_control_list = FALSE){
+		/*$no_induk = '09.16.01.001';
+		$periode_control_list = '2019-2020';*/
+		$data		= $this->payment_model->get_catatan_by_id($id_control_list);
+		// print_r($data);
+		echo json_encode($data);
+	}
+
 	public function update_pembayaran(){
 		$id_control_list = $this->input->post('id_control_list');
 		$data = array(
@@ -67,12 +75,15 @@ class Payment extends CI_Controller {
 		echo json_encode($hasil);
 	}
 
-	public function approve_spp(){
-		$field = 'spp_'.$this->input->post('id');
+	public function approve_cicil(){
+		$field = $this->input->post('id');
+		$payment = $this->input->post('payment');
+		$no_induk = $this->input->post('no_induk');
+		$periode_control_list = $this->input->post('periode_control_list');
 		$data = array(
-			$field => '1');
+			$field => $payment);
 		$id_control_list = $this->input->post('id_control_list');
-		$hasil = $this->payment_model->approve_spp($id_control_list, $data);
+		$hasil = $this->payment_model->approve_spp($no_induk, $periode_control_list, $data);
 		echo json_encode($hasil);
 	}
 
@@ -80,8 +91,9 @@ class Payment extends CI_Controller {
 		$field = $this->input->post('id');
 		$data = array(
 			$field => '1');
-		$id_control_list = $this->input->post('id_control_list');
-		$hasil = $this->payment_model->approve_spp($id_control_list, $data);
+		$no_induk = $this->input->post('no_induk');
+		$periode_control_list = $this->input->post('periode_control_list');
+		$hasil = $this->payment_model->approve_spp($no_induk, $periode_control_list, $data);
 		echo json_encode($hasil);
 	}
 

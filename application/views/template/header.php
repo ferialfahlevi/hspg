@@ -101,10 +101,10 @@
 					<a href="javascript:void(0);" data-toggle="collapse" data-target="#master_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Master Data</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 					<ul id="master_dr" class="collapse collapse-level-1">
 						<li>
-							<a href="#">Master Siswa</a>
+							<a href="<?php echo base_url('master/siswa/');?>">Master Siswa</a>
 						</li>
 						<li>
-							<a href="#">Master Pengajar</a>
+							<a href="<?php echo base_url('master/pendidik/');?>">Master Pengajar</a>
 						</li>
 					</ul>
 				</li>

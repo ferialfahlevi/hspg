@@ -35,11 +35,11 @@ class Master_model extends CI_Model {
 	}
 
 	public function list_siswa(){
-		$this->db->select('m_siswa.*, m_kelas.nama_kelas')
+		$this->db->select('m_siswa.id_siswa, m_siswa.nama_siswa, m_siswa.no_induk, m_siswa.status, m_siswa.jenis_pendidikan, m_kelas.nama_kelas')
 		->from('m_siswa')
 		->join('m_kelas', 'm_siswa.id_kelas = m_kelas.id_kelas')
 		// ->order_by("m_siswa.nama_siswa", "asc")
-		->order_by("m_siswa.status", "asc");
+		->order_by("m_siswa.nama_siswa", "asc");
 
 		$query = $this->db->get();
 		return $query->result();
@@ -65,19 +65,43 @@ class Master_model extends CI_Model {
 					'tempat_lahir' => $data->tempat_lahir,
 					'tanggal_lahir' => $data->tanggal_lahir,
 					'alamat_siswa' => $data->alamat_siswa,
-					'wali' => $data->wali,
+					'kota' => $data->kota,
+					'kd_pos' => $data->kd_pos,
+					'provinsi' => $data->provinsi,
+					'kecamatan' => $data->kecamatan,
+					'kelurahan' => $data->kelurahan,
+					'nama_ayah' => $data->nama_ayah,
+					'tempat_lahir_ayah' => $data->tempat_lahir_ayah,
+					'tanggal_lahir_ayah' => $data->tanggal_lahir_ayah,
+					'agama_ayah' => $data->agama_ayah,
+					'no_hp_ayah' => $data->no_hp_ayah,
+					'pekerjaan_ayah' => $data->pekerjaan_ayah,
+					'nama_ibu' => $data->nama_ibu,
+					'tempat_lahir_ibu' => $data->tempat_lahir_ibu,
+					'tanggal_lahir_ibu' => $data->tanggal_lahir_ibu,
+					'agama_ibu' => $data->agama_ibu,
+					'no_hp_ibu' => $data->no_hp_ibu,
+					'pekerjaan_ibu' => $data->pekerjaan_ibu,
 					'telp' => $data->telp,
 					'email' => $data->email,
 					'status' => $data->status,
-					'jenis_pendidikan' => $data->jenis_pendidikan
+					'jenis_pendidikan' => $data->jenis_pendidikan,
+					'tahun_masuk' => $data->tahun_masuk
 				);
 			}
 		}
 		return $hasil;
 	}
 
-	public function update_siswa($data){
-		$query = $this->db->insert('m_siswa',$data);
+	public function update_siswa($no_induk, $data){
+		$query = $this->db->where('no_induk', $no_induk)
+		->set($data)
+		->update('m_siswa');
+		return $query;
+	}
+
+	public function insert_siswa($data){
+		$query = $this->db->insert('m_siswa', $data);
 		return $query;
 	}
 

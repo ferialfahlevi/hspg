@@ -34,6 +34,15 @@ class Payment_model extends CI_Model {
 		
 	}
 
+	public function get_catatan_by_id($id_control_list){
+		$this->db->select('*')
+		->from('catatan_payment')
+		->where('id_control_list', $id_control_list);
+
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function update_pembayaran($id_control_list, $data){
 		$query = $this->db->where('id_control_list', $id_control_list)
 		->set($data)
@@ -41,8 +50,9 @@ class Payment_model extends CI_Model {
 		return $query;
 	}
 
-	public function approve_spp($id_control_list, $data){
-		$query = $this->db->where('id_control_list', $id_control_list)
+	public function approve_spp($no_induk, $periode_control_list, $data){
+		$query = $this->db->where('no_induk', $no_induk)
+		->where('periode_control_list', $periode_control_list)
 		->set($data)
 		->update('invoice_control_list');
 		return $query;
