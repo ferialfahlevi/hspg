@@ -1,9 +1,9 @@
-<!-- <style>
-	iframe {
+<style>
+	#framesum {
 		width: 100%;
-		height: 550px;
+		height: 400px;
 	}
-</style> -->
+</style>
 <div class="container-fluid">
 
 	<!-- Title -->
@@ -17,6 +17,20 @@
 		</div>
 	</div>
 	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<iframe id="framesum" src="<?php echo base_url().$data_center1;?>"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!-- Row -->
 
 	<!-- Row -->
 	<div class="row">

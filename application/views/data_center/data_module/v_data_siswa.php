@@ -95,7 +95,10 @@
 						'<td><span class="label label-primary">LULUS</span></td>';
 					}
 					html += 
-					'<td><a href="<?php echo base_url('Data/siswa/');?>'+data[i].ID+'" class="btn btn-primary">LIHAT</a></td>'+
+					'<td>'+
+					'<a href="<?php echo base_url('Data/siswa/');?>'+data[i].ID+'" class="btn btn-primary btn-icon-anim btn-circle btn-sm"><i class="fa fa-eye"></i></a>'+
+					'<a href="<?php echo base_url('Doc/form_registrasi/')?>" class="btn btn-success btn-icon-anim btn-circle btn-sm"><i class="fa fa-print"></i></a>'+
+					'</td>'+
 					'</tr>';
 				}
 				$('#show_table_siswa').html(html);

@@ -149,19 +149,50 @@ class Data extends CI_Controller {
 			'telp' => $this->input->post('telp_insert'),
 			'status' => $this->input->post('status_insert'));
 		$data3 = array(
-			'alamat' => strtoupper($this->input->post('alamat_insert')),
+			'alamat_siswa' => strtoupper($this->input->post('alamat_insert')),
 			'kelurahan' => strtoupper($this->input->post('kelurahan_insert')),
 			'kecamatan' => strtoupper($this->input->post('kecamatan_insert')),
 			'kota' => strtoupper($this->input->post('kota_insert')),
 			'provinsi' => strtoupper($this->input->post('provinsi_insert')),
 			'kd_pos' => strtoupper($this->input->post('kd_pos_insert')));
+
 		$this->Data_model->insert_siswa($data1);
 		$this->Data_model->update_siswa2($no_induk, $data2);
 		$this->Data_model->update_siswa2($no_induk, $data3);
 		$this->Data_model->insert_kelas($no_induk);
 
+		$id_siswa = $this->Data_model->cek_id($no_induk);
+		foreach($id_siswa->result() as $row ):
+			$id = $row->id_siswa;
+		endforeach;
+
+		$wali1 = array(
+			'id_siswa' => $id,
+			'jenis_wali' => '1',
+			'nama_wali' => strtoupper($this->input->post('nama_ayah_insert')),
+			'pekerjaan_wali' => strtoupper($this->input->post('pekerjaan_ayah_insert')),
+			'pend_terakhir' => strtoupper($this->input->post('pendidikan_ayah_insert')),
+			'penghasilan' => $this->input->post('penghasilan_ayah_insert'),
+			'no_hp_wali' => $this->input->post('telp_ayah_insert'),
+			'email_wali' => $this->input->post('email_ayah_insert'),
+			'alamat_wali' => $this->input->post('alamat_orangtua_insert')
+		);
+
+		$wali2 = array(
+			'id_siswa' => $id,
+			'jenis_wali' => '2',
+			'nama_wali' => strtoupper($this->input->post('nama_ibu_insert')),
+			'pekerjaan_wali' => strtoupper($this->input->post('pekerjaan_ibu_insert')),
+			'pend_terakhir' => strtoupper($this->input->post('pendidikan_ibu_insert')),
+			'penghasilan' => $this->input->post('penghasilan_ibu_insert'),
+			'no_hp_wali' => $this->input->post('telp_ibu_insert'),
+			'email_wali' => $this->input->post('email_ibu_insert'),
+			'alamat_wali' => $this->input->post('alamat_orangtua_insert')
+		);
+		$this->Data_model->insert_wali($wali1);
+		$this->Data_model->insert_wali($wali2);
 		$this->session->set_flashdata('sukses', '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Sukses menambah data siswa, silahkan cek data siswa</div>');
-		redirect('Routes/tambah_siswa');
+		redirect('Data/siswa/'.$id);
 	}
 
 	// ARRAY

@@ -71,6 +71,7 @@ class Routes extends CI_Controller {
 		$data['submenu'] = 'all_payment';
 		$data['submenu2'] = '';
 		$data['data_center'] = "Payment/payment/";
+		$data['data_center1'] = "Payment/sum_payment/";
 		$this->load->view('template/v_header2', $data);
 		$this->load->view('payment/v_payment');
 		$this->load->view('template/v_footer');

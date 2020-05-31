@@ -20,10 +20,30 @@
 									<a href="<?php echo base_url('Data/siswa');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Siswa</a>
 								</div>
 								<div class="pull-right">
-									<a href="javascript:refresh_siswa();" class="pull-left inline-block mr-15">
-										<i class="zmdi zmdi-replay"></i>
-									</a>
+									<a href="javascript:refresh_siswa();" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="zmdi zmdi-replay"></i></a>
+									<?php foreach($data_siswa->result() as $row ):?>
+									<a href="<?php echo base_url('Doc/form_registrasi/')?><?php echo $row->id_siswa; ?>" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-print"></i></a>
+									<?php endforeach; ?>
 								</div>
+								<!-- <div class="col-sm-2">
+									<a href="<?php echo base_url('Data/siswa');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Siswa</a>
+								</div>
+								<div class="col-sm-6">
+									<select class="form-control inline-block" id="jenis_pembayaran" name="generate_periode">
+										<option value="0">-Pilih Jenis Pembayaran-</option>
+										<option value="0">-Pilih Periode-</option>
+										<option value="0">-Pilih Periode-</option>
+										<option value="0">-Pilih Periode-</option>
+
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<select class="form-control inline-block" id="generate_periode" name="generate_periode">
+									</select>
+								</div>
+								<div class="col-sm-1">
+									
+								</div> -->
 								<div class="clearfix"></div>
 							</div>
 							<div class="panel-wrapper collapse in">
@@ -114,7 +134,7 @@
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Tanggal Lahir:</label>
 																			<div class="col-md-9">
-																				<p class="form-control-static"> <?php echo $row->tanggal_lahir; ?> </p>
+																				<p class="form-control-static"><?php echo date('d F Y', strtotime($row->tanggal_lahir)); ?></p>
 																			</div>
 																		</div>
 																	</div>
@@ -702,7 +722,11 @@
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Jenis Wali:</label>
 																			<div class="col-md-9">
-																				<p class="form-control-static"> <?php echo $row->jenis_wali; ?></p>
+																				<p class="form-control-static"> <?php if ($row->jenis_wali == '1') {
+																					echo 'Ibu';
+																				} elseif ($row->jenis_wali == '2') {
+																					echo 'Ayah';
+																				} ?></p>
 																			</div>
 																		</div>
 																	</div>
@@ -721,7 +745,7 @@
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Tanggal Lahir:</label>
 																			<div class="col-md-9">
-																				<p class="form-control-static"> <?php echo $row->tanggal_lahir_wali; ?></p>
+																				<p class="form-control-static"> <?php echo date('d F Y', strtotime($row->tanggal_lahir_wali)); ?></p>
 																			</div>
 																		</div>
 																	</div>
@@ -803,7 +827,7 @@
 																	<!--/span-->
 																</div>
 															</div>
-															<div id="wali_edit<?php echo $nilai;?>">
+															<!-- <div id="wali_edit<?php echo $nilai;?>">
 																<div class="row">
 																	<div class="col-md-6">
 																		<div class="form-group">
@@ -833,7 +857,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Tanggal Lahir:</label>
@@ -842,15 +865,12 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																</div>
-																<!-- /Row -->
 																<div class="row">
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Agama Wali:</label>
 																			<div class="col-md-9">
-																				<!-- <input type="text" class="form-control" value="<?php echo $row->agama_wali; ?>" id="agama_wali"> -->
 																				<select class="form-control inline-block" id="agama_wali" name="agama_wali">
 																					<option value="<?php echo $row->agama_wali; ?>"><?php echo $row->nama_agama; ?></option>
 																					<option value="0">-- Pilih Agama --</option>
@@ -858,7 +878,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Kota:</label>
@@ -867,7 +886,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																</div>
 																<div class="row">
 																	<div class="col-md-6">
@@ -878,7 +896,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Provinsi:</label>
@@ -887,7 +904,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																</div>
 																<div class="row">
 																	<div class="col-md-6">
@@ -898,7 +914,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="control-label col-md-3">Kelurahan:</label>
@@ -907,7 +922,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																</div>
 																<div class="row">
 																	<div class="col-md-6">
@@ -918,10 +932,8 @@
 																			</div>
 																		</div>
 																	</div>
-																	<!--/span-->
 																	<div class="col-md-6">
 																	</div>
-																	<!--/span-->
 																</div>
 																<div class="form-actions mt-10">
 																	<div class="row">
@@ -935,8 +947,7 @@
 																		<div class="col-md-6"> </div>
 																	</div>
 																</div>
-															</div>
-															<!-- <?php echo $nilai;?> -->
+															</div> -->
 															<?php $nilai++;?>
 														<?php endforeach; ?>
 														<?php if($nilai == '1'){

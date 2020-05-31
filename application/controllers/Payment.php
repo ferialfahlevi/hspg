@@ -52,6 +52,11 @@ class Payment extends CI_Controller {
 		$this->load->view('template/v_footer');	
 	}
 
+	public function sum_payment(){
+		$this->load->view('template/source');
+		$this->load->view('payment/v_sum_payment');
+	}
+
 	public function pendaftaran(){
 		$data['title'] = 'Pendaftaran dan Pangkal';
 		$data['menu'] = 'payment';

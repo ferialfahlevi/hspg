@@ -202,20 +202,20 @@
 									<div class="form-wrap">
 										<div class="form-group">
 											<label class="control-label mb-10 text-left">Alamat</label>
-											<textarea class="form-control" rows="5" name="alamat_insert"></textarea>
+											<textarea class="form-control" rows="5" name="alamat_insert" id="alamat_insert"></textarea>
 										</div>
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label mb-10 text-left">Kelurahan</label>
-													<input type="text" class="form-control" name="kelurahan_insert">
+													<input type="text" class="form-control" name="kelurahan_insert" id="kelurahan_insert">
 												</div>
 											</div>
 											<!--/span-->
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label mb-10 text-left">Kecamatan</label>
-													<input type="text" class="form-control" name="kecamatan_insert">
+													<input type="text" class="form-control" name="kecamatan_insert" id="kecamatan_insert">
 												</div>
 											</div>
 											<!--/span-->
@@ -224,21 +224,21 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label mb-10 text-left">Kota</label>
-													<input type="text" class="form-control" name="kota_insert">
+													<input type="text" class="form-control" name="kota_insert" id="kota_insert">
 												</div>
 											</div>
 											<!--/span-->
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label mb-10 text-left">Provinsi</label>
-													<input type="text" class="form-control" name="provinsi_insert">
+													<input type="text" class="form-control" name="provinsi_insert" id="provinsi_insert">
 												</div>
 											</div>
 											<!--/span-->
 										</div>
 										<div class="form-group">
 											<label class="control-label mb-10 text-left">Kode Pos</label>
-											<input type="text" class="form-control" name="kd_pos_insert">
+											<input type="text" class="form-control" name="kd_pos_insert" id="kd_pos_insert">
 										</div>
 									</div>
 								</div>	
@@ -312,6 +312,133 @@
 											<div class="col-md-6">
 											</div>
 											<!--/span-->
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">Informasi Wali</h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-12 col-xs-12">
+									<div class="form-wrap">
+										<h6 class="panel-title txt-dark">Informasi Ayah</h6>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Nama Ayah</label>
+													<input type="text" class="form-control" name="nama_ayah_insert" id="nama_ayah_insert">
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Pekerjaan</label>
+													<input type="text" class="form-control" name="pekerjaan_ayah_insert" id="pekerjaan_ayah_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Pendidikan Terakhir</label>
+													<input type="text" class="form-control" name="pendidikan_ayah_insert" id="pendidikan_ayah_insert">
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Penghasilan Per Bulan</label>
+													<input type="text" class="form-control" name="penghasilan_ayah_insert" id="penghasilan_ayah_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">No. Telp / HP</label>
+													<input type="text" class="form-control" name="telp_ayah_insert" id="telp_ayah_insert">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Email Ayah</label>
+													<input type="text" class="form-control" name="email_ayah_insert" id="email_ayah_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+
+										<h6 class="panel-title txt-dark">Informasi Ibu</h6>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Nama Ibu</label>
+													<input type="text" class="form-control" name="nama_ibu_insert" id="nama_ibu_insert">
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Pekerjaan</label>
+													<input type="text" class="form-control" name="pekerjaan_ibu_insert" id="pekerjaan_ibu_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Pendidikan Terakhir</label>
+													<input type="text" class="form-control" name="pendidikan_ibu_insert" id="pendidikan_ibu_insert">
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Penghasilan Per Bulan</label>
+													<input type="text" class="form-control" name="penghasilan_ibu_insert" id="penghasilan_ibu_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">No. Telp / HP</label>
+													<input type="text" class="form-control" name="telp_ibu_insert" id="telp_ibu_insert">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label mb-10">Email Ibu</label>
+													<input type="text" class="form-control" name="email_ibu_insert" id="email_ibu_insert">
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="control-label mb-10">Alamat Orang Tua</label>
+													<textarea class="form-control" rows="5" name="alamat_orangtua_insert" id="alamat_orangtua_insert"></textarea>
+												</div>
+											</div>
 										</div>
 										<div class="form-actions mt-10">
 											<button type="submit" class="btn btn-success  mr-10"> Tambah Siswa Baru</button>

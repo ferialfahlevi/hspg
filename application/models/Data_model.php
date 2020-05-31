@@ -90,6 +90,16 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 			->where('id_siswa', $id)->get();
 	}
 
+	public function show_wali1($id, $jenis){
+		/*$this->db->where('id_siswa', $id);
+		return $this->db->get('m_wali');*/
+		return $query = $this->db->select('m_wali.*, m_agama.nama_agama')
+			->from('m_wali')
+			->join('m_agama', 'm_wali.agama_wali = m_agama.id')
+			->where('id_siswa', $id)
+			->where('jenis_wali', $jenis)->get();
+	}
+
 	public function update_siswa($id_siswa, $data){
 		$query = $this->db->where('id_siswa', $id_siswa)
 		->set($data)
@@ -123,6 +133,11 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 		return $query;
 	}
 
+	public function insert_wali($data){
+		$query = $this->db->insert('m_wali', $data);
+		return $query;
+	}
+
 	public function update_siswa2($no_induk, $data){
 		$query = $this->db->where('no_induk', $no_induk)
 		->set($data)
@@ -145,5 +160,13 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 			->where('m_siswa.id_siswa', $id_pendidik)->get();
 		}
 		return $hasil->result();
+	}
+
+	public function cek_id($no_induk){
+		/*$hasil = $this->db->query("SELECT id_siswa FROM m_siswa WHERE no_induk = '".$no_induk."' LIMIT 1");
+		return $hasil->result();*/
+		return $query = $this->db->select('id_siswa')
+			->from('m_siswa')
+			->where('no_induk', $no_induk)->get();
 	}
 }
