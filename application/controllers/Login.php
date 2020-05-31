@@ -24,7 +24,11 @@ class Login extends CI_Controller {
 	}
 
 	public function index() {
-		$this->load->view('v_login');
+		if(isset($_SESSION['logged_in']['username'])){								
+			redirect(base_url());
+		} else {
+			$this->load->view('v_login');
+		}
 	}
 
 	public function do_login(){
@@ -50,14 +54,15 @@ class Login extends CI_Controller {
 		} 
 		else
 		{
-			echo "Salah";
+			$this->session->set_flashdata('salah_pass', '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-times pr-15 pull-left"></i><p class="pull-left">Username atau Password Salah</p><div class="clearfix"></div></div>');
+			redirect('index.php/Login');
 		}
 
 	}
 
 	public function logout(){
 		$this->session->sess_destroy();
-		redirect(base_url());
+		redirect(base_url('index.php/Login'));
 	}
 	
 }

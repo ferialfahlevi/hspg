@@ -18,108 +18,173 @@ class Payment extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
 	public function __construct() {
-	    parent::__construct();
-	    if(!isset($_SESSION['logged_in']['username'])){								
+		parent::__construct();
+		$this->load->model('Payment_model');
+		if(!isset($_SESSION['logged_in']['username'])){								
 			redirect('login');
 		}
-		$this->load->model('payment_model');
 	}
 
-	public function index() {
-		$this->load->view('template/header');
-		$this->load->view('payment/v_payment');
-	}
-
-	public function list_control($periode = FALSE){
-		if ($periode == 'all') {
-			$data	= $this->payment_model->control_list();
+	public function payment($id = FALSE, $periode = FALSE) {
+		if ($id === FALSE) {
+			$this->load->view('template/source');
+			$this->load->view('payment/payment_module/v_all_payment');
 		} else {
-			$data	= $this->payment_model->control_list($periode);
+			$data['nama_siswa'] = $this->Payment_model->show_nama_siswa($id);
+			$data['spp'] = $this->Payment_model->show_spp($id, $periode);
+			$data['non_spp'] = $this->Payment_model->show_non_spp($id, $periode);
+			$data['periode'] = $this->Payment_model->show_periode($id, $periode);
+			$this->load->view('template/source');
+			$this->load->view('payment/payment_module/v_detail_payment', $data);
 		}
-		echo json_encode($data);
 	}
 
-	public function periodic($periodic){
-		$this->load->view('template/header');
-		$this->load->view('payment/v_periodic');
+	public function heregistrasi(){
+		$data['title'] = 'Heregistrasi';
+		$data['menu'] = 'payment';
+		$data['submenu'] = 'heregistrasi';
+		$data['submenu2'] = '';
+		$data['data_center'] = '';
+		$this->load->view('template/v_header2', $data);
+		$this->load->view('payment/v_heregistrasi');
+		$this->load->view('template/v_footer');	
 	}
 
-	public function get_siswa_detail($periode = FALSE, $no_induk = FALSE){
-		/*$no_induk = '09.16.01.001';
-		$periode_control_list = '2019-2020';*/
-		$data		= $this->payment_model->get_payment_by_siswa($no_induk, $periode);
-		// print_r($data);
-		echo json_encode($data);
+	public function pendaftaran(){
+		$data['title'] = 'Pendaftaran dan Pangkal';
+		$data['menu'] = 'payment';
+		$data['submenu'] = 'pendaftaran';
+		$data['submenu2'] = '';
+		$data['data_center'] = '';
+		$this->load->view('template/v_header2', $data);
+		$this->load->view('payment/v_pendaftaran');
+		$this->load->view('template/v_footer');	
 	}
 
-	public function get_catatan($id_control_list = FALSE){
-		/*$no_induk = '09.16.01.001';
-		$periode_control_list = '2019-2020';*/
-		$data		= $this->payment_model->get_catatan_by_id($id_control_list);
-		// print_r($data);
-		echo json_encode($data);
-	}
-
-	public function update_pembayaran(){
-		$id_control_list = $this->input->post('id_control_list');
-		$data = array(
-			'pendaftaran' => $this->input->post('pendaftaran'),
-			'pangkal' => $this->input->post('pangkal'),
-			'heregistrasi' => $this->input->post('heregistrasi'),
-			'ujian' => $this->input->post('ujian'),
-			'kegiatan_1' => $this->input->post('kegiatan_1'),
-			'kegiatan_2' => $this->input->post('kegiatan_2'),
-		);
-		$hasil = $this->payment_model->update_pembayaran($id_control_list, $data);
+	// Payment Action
+	public function set_lunas(){
+		$id = $this->input->post('id');
+		// $id = '1083';
+		$hasil = $this->Payment_model->set_lunas($id);
 		echo json_encode($hasil);
 	}
 
-	public function approve_cicil(){
-		$field = $this->input->post('id');
-		$payment = $this->input->post('payment');
-		$no_induk = $this->input->post('no_induk');
-		$periode_control_list = $this->input->post('periode_control_list');
-		$data = array(
-			$field => $payment);
-		$id_control_list = $this->input->post('id_control_list');
-		$hasil = $this->payment_model->approve_spp($no_induk, $periode_control_list, $data);
+	public function update_payment(){
+		$id = $this->input->post('id');
+		$dibayar = $this->input->post('dibayar');
+		$hasil = $this->Payment_model->update_payment($id, $dibayar);
 		echo json_encode($hasil);
 	}
 
-	public function approve_pembayaran(){
-		$field = $this->input->post('id');
-		$data = array(
-			$field => '1');
-		$no_induk = $this->input->post('no_induk');
-		$periode_control_list = $this->input->post('periode_control_list');
-		$hasil = $this->payment_model->approve_spp($no_induk, $periode_control_list, $data);
+	public function edit_payment(){
+		$id = $this->input->post('id');
+		$jumlah = $this->input->post('jumlah');
+		$hasil = $this->Payment_model->edit_payment($id, $jumlah);
 		echo json_encode($hasil);
 	}
 
-	public function last_periode(){
-		$hasil = $this->payment_model->last_periode();
+	public function reset_payment(){
+		$id = $this->input->post('id');
+		$hasil = $this->Payment_model->reset_payment($id);
 		echo json_encode($hasil);
 	}
 
-	public function check(){
-		$no_induk = '09.16.01.001';
-		$periode_control_list = '2019-2020';
+	public function delete_payment(){
+		$id = $this->input->post('id');
+		$hasil = $this->Payment_model->delete_payment($id);
+		echo json_encode($hasil);
+	}
+
+	public function update_log_payment(){
 		$data = array(
-			'no_induk' => $no_induk,
-			'periode_control_list' => $periode_control_list);
-		$hasil = $this->payment_model->check($data)->num_rows();
-		if ($hasil > 1) {
-			echo "banyak";
-		} else {
-			echo "dikit";
-		}
-		// print_r($hasil);
+			'id_payment' => $this->input->post('id_payment'),
+			'nominal' => $this->input->post('nominal'),
+			'jenis_log' => $this->input->post('jenis_log'),
+			'user' => $_SESSION['logged_in']['username']);
+		$hasil = $this->Payment_model->update_log_payment($data);
+		echo json_encode($hasil);
 	}
 
-	public function get_payment_detail($periode = FALSE, $no_induk = FALSE){
-		$this->load->view('template/header');
-		$this->load->view('payment/v_detail');
+	public function delete_log_payment(){
+		$id = $this->input->post('id');
+		$hasil = $this->Payment_model->delete_log_payment($id);
+		echo json_encode($hasil);
 	}
 
+	public function get_log_payment(){
+		$id_payment = $this->input->post('id_payment');
+		$hasil = $this->Payment_model->get_log_payment($id_payment);
+		echo json_encode($hasil);
+	}
+
+	//ARRAY
+	public function get_payment(){
+		$id = $this->input->post('id');
+		$hasil = $this->Payment_model->get_payment($id);
+		echo json_encode($hasil);
+	}
+
+	public function dropdown_periode(){
+		$hasil = $this->Payment_model->dropdown_periode();
+		echo json_encode($hasil);
+	}
+
+	public function check_periode(){
+		$id_siswa = $this->input->post('id_siswa');
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->check_periode($id_siswa, $id_periode);
+		echo json_encode($hasil);	
+	}
+
+	public function generate_periode(){
+		$id_siswa = $this->input->post('id_siswa');
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->generate_periode($id_siswa, $id_periode);
+		echo json_encode($hasil);
+	}
+
+	public function latest_periode(){
+		$hasil = $this->Payment_model->latest_periode();
+		echo json_encode($hasil);
+	}
+
+	public function show_heregistrasi(){
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->show_heregistrasi($id_periode);
+		echo json_encode($hasil);
+	}
+
+	public function show_pendaftaran(){
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->show_pendaftaran($id_periode);
+		echo json_encode($hasil);
+	}
+
+	public function show_sum_heregistrasi(){
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->show_sum_heregistrasi($id_periode);
+		echo json_encode($hasil);
+	}
+
+	public function show_sum_pendaftaran(){
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->show_sum_pendaftaran($id_periode);
+		echo json_encode($hasil);
+	}
+
+	public function data_spp(){
+		$id = $this->input->post('id');
+		$periode = $this->input->post('periode');
+		$hasil = $this->Payment_model->data_spp($id, $periode);
+		echo json_encode($hasil);
+	}
+
+	public function data_non_spp(){
+		$id = $this->input->post('id');
+		$periode = $this->input->post('periode');
+		$hasil = $this->Payment_model->data_non_spp($id, $periode);
+		echo json_encode($hasil);
+	}
 }
