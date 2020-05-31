@@ -74,7 +74,7 @@
 		</div>
 	</div>
 	<!-- /Row -->
-	<form action="<?php echo base_url('index.php/Data/insert_siswa');?>" method="POST">
+	<form action="<?php echo base_url('Data/insert_siswa');?>" method="POST">
 		<!-- Row -->
 		<div class="row">
 			<div class="col-md-6">
@@ -331,8 +331,7 @@
 	dropdown_agama();
 	function dropdown_agama(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/dropdown_agama',
+			url     : '<?php echo base_url();?>Data/dropdown_agama',
 			async   : false,
 			dataType: 'json',
 			success : function(data){
@@ -347,8 +346,7 @@
 	dropdown_kelas();
 	function dropdown_kelas(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/dropdown_kelas',
+			url     : '<?php echo base_url();?>Data/dropdown_kelas',
 			async   : false,
 			dataType: 'json',
 			success : function(data){
@@ -371,7 +369,7 @@
 		} else {
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Data/generate_nik')?>",
+				url  : "<?php echo base_url('Data/generate_nik')?>",
 				dataType : "JSON",
 				data : {kode_cabang:kode_cabang, jenjang:jenjang, current_year:current_year},
 				success: function(data){

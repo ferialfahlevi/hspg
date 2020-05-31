@@ -64,8 +64,7 @@
 	show_siswa();
 	function show_siswa(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/show_siswa',
+			url     : '<?php echo base_url();?>Data/show_siswa',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -96,7 +95,7 @@
 						'<td><span class="label label-primary">LULUS</span></td>';
 					}
 					html += 
-					'<td><a href="<?php echo base_url('index.php/Data/siswa/');?>'+data[i].ID+'" class="btn btn-primary">LIHAT</a></td>'+
+					'<td><a href="<?php echo base_url('Data/siswa/');?>'+data[i].ID+'" class="btn btn-primary">LIHAT</a></td>'+
 					'</tr>';
 				}
 				$('#show_table_siswa').html(html);
@@ -122,7 +121,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Settings/insert_list_object')?>",
+				url  : "<?php echo base_url('Settings/insert_list_object')?>",
 				dataType : "JSON",
 				data : {nama_object:nama_object, ket:ket},
 				success: function(data){

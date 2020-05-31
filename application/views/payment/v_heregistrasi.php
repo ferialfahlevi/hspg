@@ -105,8 +105,7 @@
 	periode();
 	function periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/latest_periode',
+			url     : '<?php echo base_url();?>Payment/latest_periode',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -125,7 +124,7 @@
 		var total_piutang;
 		$.ajax({
 			type : "POST",
-			url     : '<?php echo base_url();?>index.php/Payment/show_sum_heregistrasi',
+			url     : '<?php echo base_url();?>Payment/show_sum_heregistrasi',
 			dataType : "JSON",
 			data : {id_periode:latest_periode},
 			success: function(data){
@@ -138,7 +137,7 @@
 		});
 		$.ajax({
 			type : "POST",
-			url     : '<?php echo base_url();?>index.php/Payment/show_heregistrasi',
+			url     : '<?php echo base_url();?>Payment/show_heregistrasi',
 			dataType : "JSON",
 			data : {id_periode:latest_periode},
 			success: function(data){
@@ -150,11 +149,11 @@
 					'<tr">'+
 					'<td>'+data[i].ID+'</td>';
 					if (data[i].JENIS_PENDIDIKAN == '3') {
-						html += '<td class="txt-danger"><a class="txt-danger" href="<?php echo base_url();?>index.php/Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
+						html += '<td class="txt-danger"><a class="txt-danger" href="<?php echo base_url();?>Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
 					} else if (data[i].JENIS_PENDIDIKAN == '2') {
-						html += '<td class="txt-primary"><a class="txt-primary" href="<?php echo base_url();?>index.php/Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
+						html += '<td class="txt-primary"><a class="txt-primary" href="<?php echo base_url();?>Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
 					} else if (data[i].JENIS_PENDIDIKAN == '1') {
-						html += '<td class="txt-success"><a class="txt-success" href="<?php echo base_url();?>index.php/Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
+						html += '<td class="txt-success"><a class="txt-success" href="<?php echo base_url();?>Payment/payment/'+data[i].ID_SISWA+'/'+latest_periode+'">'+data[i].NAMA+'</a></td>';
 					}
 					html +=
 					'<td>'+data[i].NIS+'</td>'+
@@ -190,7 +189,7 @@
 		$('#modal_log_payment').modal('show');
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/get_log_payment/');?>",
+			url     : "<?php echo base_url('Payment/get_log_payment/');?>",
 			dataType    : 'json',
 			data : {id_payment:id},
 			success : function(data){
@@ -213,8 +212,7 @@
 	dropdown_periode();
 	function dropdown_periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/dropdown_periode',
+			url     : '<?php echo base_url();?>Payment/dropdown_periode',
 			async   : false,
 			dataType: 'json',
 			success : function(data){

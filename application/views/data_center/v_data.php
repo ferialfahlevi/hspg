@@ -30,7 +30,7 @@
 				</div>
 				<div class="panel-wrapper collapse in">
 					<div class="panel-body">
-						<iframe frameborder="0" scrolling="yes" seamless="seamless" style="display:block; width:100%; height:100vh;" src="<?php echo base_url('index.php/').$data_center;?>" name="myFrame"></iframe>
+						<iframe frameborder="0" scrolling="yes" seamless="seamless" style="display:block; width:100%; height:100vh;" src="<?php echo base_url().$data_center;?>" name="myFrame"></iframe>
 					</div>
 				</div>
 			</div>

@@ -110,8 +110,7 @@
 	show_pendidik();
 	function show_pendidik(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/show_pendidik',
+			url     : '<?php echo base_url();?>Data/show_pendidik',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -131,7 +130,7 @@
 						'<td><span class="label label-default">TIDAK AKTIF</span></td>';
 					}
 					html += 
-					'<td><a href="<?php echo base_url('index.php/Data/pendidik/');?>'+data[i].ID+'" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>'+
+					'<td><a href="<?php echo base_url('Data/pendidik/');?>'+data[i].ID+'" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>'+
 					'</tr>';
 				}
 				$('#show_table_pendidik').html(html);
@@ -157,7 +156,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Settings/insert_list_object')?>",
+				url  : "<?php echo base_url('Settings/insert_list_object')?>",
 				dataType : "JSON",
 				data : {nama_object:nama_object, ket:ket},
 				success: function(data){

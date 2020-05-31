@@ -316,8 +316,7 @@
 	periode();
 	function periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/latest_periode',
+			url     : '<?php echo base_url();?>Payment/latest_periode',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -334,7 +333,7 @@
 	function show_active_student(){
 		$.ajax({
 			type    : "POST",
-			url     : '<?php echo base_url();?>index.php/Dashboard/show_active_student',
+			url     : '<?php echo base_url();?>Dashboard/show_active_student',
 			async   : false,
 			dataType    : 'json',
 			data : {parameter:'active'},
@@ -351,7 +350,7 @@
 	function show_all_student(){
 		$.ajax({
 			type    : "POST",
-			url     : '<?php echo base_url();?>index.php/Dashboard/show_active_student',
+			url     : '<?php echo base_url();?>Dashboard/show_active_student',
 			async   : false,
 			dataType    : 'json',
 			data : {parameter:'all'},
@@ -367,8 +366,7 @@
 	show_active_teacher();
 	function show_active_teacher(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Dashboard/show_active_teacher',
+			url     : '<?php echo base_url();?>Dashboard/show_active_teacher',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -383,8 +381,7 @@
 	show_semester();
 	function show_semester(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Dashboard/show_semester',
+			url     : '<?php echo base_url();?>Dashboard/show_semester',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){

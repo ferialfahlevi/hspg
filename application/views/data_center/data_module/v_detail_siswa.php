@@ -17,7 +17,7 @@
 							</div>
 							<div class="panel-heading">
 								<div class="pull-left">
-									<a href="<?php echo base_url('index.php/Data/siswa');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Siswa</a>
+									<a href="<?php echo base_url('Data/siswa');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Siswa</a>
 								</div>
 								<div class="pull-right">
 									<a href="javascript:refresh_siswa();" class="pull-left inline-block mr-15">
@@ -1181,8 +1181,7 @@
 
 	function dropdown_agama(param){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/dropdown_agama',
+			url     : '<?php echo base_url();?>Data/dropdown_agama',
 			async   : false,
 			dataType: 'json',
 			success : function(data){
@@ -1199,8 +1198,7 @@
 	dropdown_kelas();
 	function dropdown_kelas(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/dropdown_kelas',
+			url     : '<?php echo base_url();?>Data/dropdown_kelas',
 			async   : false,
 			dataType: 'json',
 			success : function(data){
@@ -1264,7 +1262,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Data/update_data_siswa')?>",
+				url  : "<?php echo base_url('Data/update_data_siswa')?>",
 				dataType : "JSON",
 				data : {id_siswa:id_siswa , nama_siswa:nama_siswa, no_induk:no_induk, jk_siswa:jk_siswa, gol_darah:gol_darah, tempat_lahir:tempat_lahir, tanggal_lahir:tanggal_lahir, agama:agama, telp:telp, email:email},
 				success: function(data){
@@ -1298,7 +1296,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Data/update_alamat_siswa')?>",
+				url  : "<?php echo base_url('Data/update_alamat_siswa')?>",
 				dataType : "JSON",
 				data : {id_siswa:id_siswa , alamat_siswa:alamat_siswa, kota:kota, kelurahan:kelurahan, kecamatan:kecamatan, provinsi:provinsi, kd_pos:kd_pos},
 				success: function(data){
@@ -1327,7 +1325,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Data/update_info_siswa')?>",
+				url  : "<?php echo base_url('Data/update_info_siswa')?>",
 				dataType : "JSON",
 				data : {id_siswa:id_siswa, status:status, jenis_pendidikan:jenis_pendidikan},
 				success: function(data){

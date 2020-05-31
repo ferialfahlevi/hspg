@@ -158,7 +158,7 @@ class Data extends CI_Controller {
 		$this->Data_model->insert_kelas($no_induk);
 
 		$this->session->set_flashdata('sukses', '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Sukses menambah data siswa, silahkan cek data siswa</div>');
-		redirect('index.php/Routes/tambah_siswa');
+		redirect('Routes/tambah_siswa');
 	}
 
 	// ARRAY

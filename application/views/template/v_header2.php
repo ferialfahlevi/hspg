@@ -343,7 +343,7 @@
 								<a href="#"><i class="zmdi zmdi-settings"></i><span>Settings</span></a>
 							</li> -->
 							<li>
-								<a href="<?php echo base_url('index.php/Routes/settings');?>"><i class="zmdi zmdi-settings"></i><span>Settings</span></a>
+								<a href="<?php echo base_url('Routes/settings');?>"><i class="zmdi zmdi-settings"></i><span>Settings</span></a>
 							</li>
 							<li class="divider"></li>
 							<li class="sub-menu show-on-hover">
@@ -362,7 +362,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="<?php echo base_url('index.php/Login/logout');?>"><i class="zmdi zmdi-power"></i><span>Log Out</span></a>
+								<a href="<?php echo base_url('Login/logout');?>"><i class="zmdi zmdi-power"></i><span>Log Out</span></a>
 							</li>
 						</ul>
 					</li>
@@ -384,25 +384,22 @@
 				<li>
 					<a class="<?php if($menu == 'data'){ echo 'active';}?>" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="fa fa-book mr-20"></i><span class="right-nav-text">Data Center</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 					<ul id="dashboard_dr" class="collapse collapse-level-1">
-						<!-- <li>
-							<a class="<?php if($submenu == 'data_siswa'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/siswa');?>">Data Siswa</a>
-						</li> -->
 						<li>
 							<a class="<?php if($submenu == 'siswa'){ echo 'active-page';}?>" href="javascript:void(0);" data-toggle="collapse" data-target="#dropdown_dr_lv2">Siswa<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 							<ul id="dropdown_dr_lv2" class="collapse collapse-level-2">
 								<li>
-									<a class="<?php if($submenu2 == 'data_siswa'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/siswa');?>">Data Siswa</a>
+									<a class="<?php if($submenu2 == 'data_siswa'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/siswa');?>">Data Siswa</a>
 								</li>
 								<li>
-									<a class="<?php if($submenu2 == 'tambah_siswa'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/tambah_siswa');?>">Tambah Siswa Baru</a>
+									<a class="<?php if($submenu2 == 'tambah_siswa'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/tambah_siswa');?>">Tambah Siswa Baru</a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'data_pengajar'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/pengajar');?>">Data Pengajar</a>
+							<a class="<?php if($submenu == 'data_pengajar'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/pengajar');?>">Data Pengajar</a>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'data_user'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/user');?>">Data User</a>
+							<a class="<?php if($submenu == 'data_user'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/user');?>">Data User</a>
 						</li>
 					</ul>
 				</li>
@@ -410,18 +407,18 @@
 					<a class="<?php if($menu == 'payment'){ echo 'active';}?>" href="javascript:void(0);" data-toggle="collapse" data-target="#payment_dr"><div class="pull-left"><i class="fa fa-money mr-20"></i><span class="right-nav-text">Payment</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 					<ul id="payment_dr" class="collapse collapse-level-1">
 						<li>
-							<a class="<?php if($submenu == 'all_payment'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Routes/payment');?>">Manage Payment</a>
+							<a class="<?php if($submenu == 'all_payment'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/payment');?>">Manage Payment</a>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'pendaftaran'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Payment/pendaftaran');?>">Pendaftaran & Pangkal</a>
+							<a class="<?php if($submenu == 'pendaftaran'){ echo 'active-page';}?>" href="<?php echo base_url('Payment/pendaftaran');?>">Pendaftaran & Pangkal</a>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'heregistrasi'){ echo 'active-page';}?>" href="<?php echo base_url('index.php/Payment/heregistrasi');?>">Heregistrasi</a>
+							<a class="<?php if($submenu == 'heregistrasi'){ echo 'active-page';}?>" href="<?php echo base_url('Payment/heregistrasi');?>">Heregistrasi</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a class="<?php if($menu == 'settings'){ echo 'active';}?>" href="<?php echo base_url('index.php/Routes/settings');?>"><div class="pull-left"><i class="fa fa-gears mr-20"></i><span class="right-nav-text">Settings</span></div><div class="clearfix"></div></a>
+					<a class="<?php if($menu == 'settings'){ echo 'active';}?>" href="<?php echo base_url('Routes/settings');?>"><div class="pull-left"><i class="fa fa-gears mr-20"></i><span class="right-nav-text">Settings</span></div><div class="clearfix"></div></a>
 				</li>
 			</ul>
 		</div>

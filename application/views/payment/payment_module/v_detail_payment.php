@@ -17,7 +17,7 @@
 							</div>
 							<div class="panel-heading">
 								<div class="pull-left">
-									<a href="<?php echo base_url('index.php/Payment/payment');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Payment</a>
+									<a href="<?php echo base_url('Payment/payment');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Payment</a>
 								</div>
 								<div class="pull-right">
 									<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle" type="button" onclick="javascript:refresh_payment()"><i class="zmdi zmdi-replay"></i></button>
@@ -45,7 +45,7 @@
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
-																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('index.php/Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
+																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
 																<input class="form-control inline-block" id="id_siswa" value="<?php echo $row->id_siswa;?>" type="hidden"/>
 															<?php endforeach; ?>
 														</div>
@@ -83,7 +83,7 @@
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
-																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('index.php/Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
+																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
 																<input class="form-control inline-block" id="id_siswa" value="<?php echo $row->id_siswa;?>" type="hidden"/>
 															<?php endforeach; ?>
 														</div>
@@ -121,7 +121,7 @@
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
-																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('index.php/Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
+																<h6 class="txt-dark capitalize-font"><a id="nama_siswa" href="<?php echo base_url('Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
 																<input class="form-control inline-block" id="id_siswa" value="<?php echo $row->id_siswa;?>" type="hidden"/>
 															<?php endforeach; ?>
 														</div>
@@ -206,7 +206,7 @@
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
-																<h6 class="txt-dark capitalize-font"><a href="<?php echo base_url('index.php/Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
+																<h6 class="txt-dark capitalize-font"><a href="<?php echo base_url('Data/siswa/').$row->id_siswa;?>"><?php echo $row->nama_siswa;?></a></h6>
 															<?php endforeach; ?>
 														</div>
 														<div class="clearfix"></div>
@@ -496,7 +496,7 @@
 		// alert(id+' '+periode);
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/data_spp');?>",
+			url     : "<?php echo base_url('Payment/data_spp');?>",
 			dataType    : 'json',
 			data : {id:id, periode:periode},
 			success : function(data){
@@ -564,7 +564,7 @@
 		// alert(id+' '+periode);
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/data_non_spp');?>",
+			url     : "<?php echo base_url('Payment/data_non_spp');?>",
 			dataType    : 'json',
 			data : {id:id, periode:periode},
 			success : function(data){
@@ -669,7 +669,7 @@
 		var jumlah	=$('#jumlah_payment_ed').val();
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/edit_payment/');?>",
+			url     : "<?php echo base_url('Payment/edit_payment/');?>",
 			dataType    : 'json',
 			data : {id:id, jumlah:jumlah},
 			success : function(data){
@@ -696,7 +696,7 @@
 		var id_siswa	=$('#id_siswa').val();
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/generate_periode/');?>",
+			url     : "<?php echo base_url('Payment/generate_periode/');?>",
 			dataType    : 'json',
 			data : {id_siswa:id_siswa, id_periode:id_periode},
 			success : function(data){
@@ -715,8 +715,7 @@
 	dropdown_periode();
 	function dropdown_periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/dropdown_periode',
+			url     : '<?php echo base_url();?>Payment/dropdown_periode',
 			async   : false,
 			dataType: 'json',
 			success : function(data){
@@ -739,7 +738,7 @@
 		} else{
 			$.ajax({
 				type    : "POST",
-				url     : "<?php echo base_url('index.php/Payment/check_periode/');?>",
+				url     : "<?php echo base_url('Payment/check_periode/');?>",
 				dataType    : 'json',
 				data : {id_siswa:id_siswa, id_periode:qID},
 				success : function(data){
@@ -762,7 +761,7 @@
 		if (r == true) {
 			$.ajax({
 				type    : "POST",
-				url     : "<?php echo base_url('index.php/Payment/set_lunas/');?>",
+				url     : "<?php echo base_url('Payment/set_lunas/');?>",
 				dataType    : 'json',
 				data : {id:id},
 				success : function(data){
@@ -792,7 +791,7 @@
 		if (r == true) {
 			$.ajax({
 				type    : "POST",
-				url     : "<?php echo base_url('index.php/Payment/reset_payment/');?>",
+				url     : "<?php echo base_url('Payment/reset_payment/');?>",
 				dataType    : 'json',
 				data : {id:id},
 				success : function(data){
@@ -810,7 +809,7 @@
             });
 			$.ajax({
 				type    : "POST",
-				url     : "<?php echo base_url('index.php/Payment/delete_log_payment/');?>",
+				url     : "<?php echo base_url('Payment/delete_log_payment/');?>",
 				dataType    : 'json',
 				data : {id:id},
 				success : function(data){
@@ -837,7 +836,7 @@
 			if (r == true) {
 				$.ajax({
 					type    : "POST",
-					url     : "<?php echo base_url('index.php/Payment/set_lunas/');?>",
+					url     : "<?php echo base_url('Payment/set_lunas/');?>",
 					dataType    : 'json',
 					data : {id:id},
 					success : function(data){
@@ -866,7 +865,7 @@
 			if (r == true) {
 				$.ajax({
 					type : "POST",
-					url  : "<?php echo base_url('index.php/Payment/update_payment')?>",
+					url  : "<?php echo base_url('Payment/update_payment')?>",
 					dataType : "JSON",
 					data : {id:id, dibayar:dibayar},
 					success : function(data){
@@ -893,7 +892,7 @@
 	function update_log(id_payment, nominal, jenis_log){
 		$.ajax({
 			type : "POST",
-			url  : "<?php echo base_url('index.php/Payment/update_log_payment')?>",
+			url  : "<?php echo base_url('Payment/update_log_payment')?>",
 			// dataType : "JSON",
 			data : {id_payment:id_payment, nominal:nominal, jenis_log:jenis_log},
 			success: function(data){
@@ -906,7 +905,7 @@
 		$('#modal_update').modal('show');
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/get_payment/');?>",
+			url     : "<?php echo base_url('Payment/get_payment/');?>",
 			dataType    : 'json',
 			data : {id:id},
 			success : function(data){
@@ -945,7 +944,7 @@
 		$('#modal_log_payment').modal('show');
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/get_log_payment/');?>",
+			url     : "<?php echo base_url('Payment/get_log_payment/');?>",
 			dataType    : 'json',
 			data : {id_payment:id},
 			success : function(data){
@@ -969,7 +968,7 @@
 		$('#modal_edit_payment').modal('show');
 		$.ajax({
 			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/get_payment/');?>",
+			url     : "<?php echo base_url('Payment/get_payment/');?>",
 			dataType    : 'json',
 			data : {id:id},
 			success : function(data){
@@ -986,26 +985,4 @@
 			}
 		});
 	}
-
-	/*$('[name="edit_payment"]').on('click',function(){
-		var id = $(this).attr('data');
-		$('#modal_edit_payment').modal('show');
-		$.ajax({
-			type    : "POST",
-			url     : "<?php echo base_url('index.php/Payment/get_payment/');?>",
-			dataType    : 'json',
-			data : {id:id},
-			success : function(data){
-				var i;
-				var html = '';
-				var nama_pembayaran = '';
-				var bulan;
-				for(i=0; i<data.length; i++){
-					$('#nama_pembayaran_ed').html(nama_pembayaran);
-					$('#id_payment_ed').val(data[i].ID);
-					$('#jumlah_payment_ed').val(data[i].JUMLAH2);
-				}
-			}
-		});
-	});*/
 </script>

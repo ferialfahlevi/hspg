@@ -114,8 +114,7 @@
 	periode();
 	function periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/latest_periode',
+			url     : '<?php echo base_url();?>Payment/latest_periode',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -138,8 +137,7 @@
 	function show_siswa(periode){
 		
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Data/show_payment_siswa',
+			url     : '<?php echo base_url();?>Data/show_payment_siswa',
 			async   : false,
 			dataType    : 'json',
 			success : function(data){
@@ -161,7 +159,7 @@
 					'<td>'+data[i].KELAS+'</td>';
 					// '<td>'+data[i].STATUS+'</td>'+
 					html +=
-					'<td><a href="<?php echo base_url('index.php/Payment/payment/');?>'+data[i].ID+'/'+latest_periode+'" class="btn btn-primary">LIHAT</a></td>'+
+					'<td><a href="<?php echo base_url('Payment/payment/');?>'+data[i].ID+'/'+latest_periode+'" class="btn btn-primary">LIHAT</a></td>'+
 					'</tr>';
 				}
 				$('#show_table_siswa').html(html);
@@ -187,7 +185,7 @@
 
 			$.ajax({
 				type : "POST",
-				url  : "<?php echo base_url('index.php/Settings/insert_list_object')?>",
+				url  : "<?php echo base_url('Settings/insert_list_object')?>",
 				dataType : "JSON",
 				data : {nama_object:nama_object, ket:ket},
 				success: function(data){
@@ -208,8 +206,7 @@
 	dropdown_periode();
 	function dropdown_periode(){
 		$.ajax({
-			type    : 'ajax',
-			url     : '<?php echo base_url();?>index.php/Payment/dropdown_periode',
+			url     : '<?php echo base_url();?>Payment/dropdown_periode',
 			async   : false,
 			dataType: 'json',
 			success : function(data){

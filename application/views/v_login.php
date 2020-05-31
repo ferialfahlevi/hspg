@@ -49,7 +49,7 @@
 									</div>	
 									<div class="form-wrap">
 										<?php echo $this->session->flashdata('salah_pass');?>
-										<form action="<?php echo base_url('index.php/Login/do_login');?>" method="post">
+										<form action="<?php echo base_url('Login/do_login');?>" method="post">
 											<div class="form-group">
 												<label class="control-label mb-10" for="exampleInputEmail_2">Username</label>
 												<input type="text" class="form-control" required="" id="exampleInputEmail_2" name="username" placeholder="Enter username">
