@@ -110,11 +110,14 @@ class Data extends CI_Controller {
 		if ($id === FALSE) {
 			$this->load->view('template/source');
 			$this->load->view('data_center/data_module/v_data_pengajar');
-		}/* else {
-			$data['data_siswa'] = $this->Data_model->show_siswa($id);
+		}
+	}
+
+	public function user($id = FALSE) {
+		if ($id === FALSE) {
 			$this->load->view('template/source');
-			$this->load->view('data_center/data_module/v_detail_siswa', $data);
-		}*/
+			$this->load->view('data_center/data_module/v_user');
+		}
 	}
 
 	public function tambah_siswa(){
@@ -184,6 +187,15 @@ class Data extends CI_Controller {
 
 	public function dropdown_kelas(){
 		$hasil = $this->Data_model->dropdown_kelas();
+		echo json_encode($hasil);
+	}
+
+	public function show_user($id_user = FALSE){
+		if ($id_user === FALSE) {
+			$hasil = $this->Data_model->show_user();
+		} else {
+			$hasil = $this->Data_model->show_user($id_user);
+		}
 		echo json_encode($hasil);
 	}
 }

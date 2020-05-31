@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title><?php echo $title;?> | iTask HSPG</title>
+	<title><?php echo $title;?> | HSPG.online</title>
 	<meta name="author" content="hencework"/>
 	
 	<!-- Favicon -->
@@ -80,7 +80,7 @@
 					<div class="logo-wrap">
 						<a href="<?php echo base_url();?>">
 							<img class="brand-img" src="<?php echo base_url();?>assets/dist/img/logo.png" alt="brand"/>
-							<span class="brand-text">iTask HSPG</span>
+							<span class="brand-text">HSPG.online</span>
 						</a>
 					</div>
 				</div>	

@@ -129,4 +129,21 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 		->update('m_siswa');
 		return $query;
 	}
+
+	public function show_user($id_user = FALSE){
+		if ($id_user === FALSE) {
+			$hasil = $this->db->query("
+			SELECT nama_user, username, status, prev_tambah_siswa, prev_tambah_payment,
+			prev_edit_siswa, prev_edit_payment, prev_edit_pengajar, prev_admin
+			FROM m_user");
+		} else {
+			// $this->db->where('id_siswa', $id);
+			// return $this->db->get('m_siswa');
+			return $query = $this->db->select('m_siswa.*, m_agama.nama_agama')
+			->from('m_siswa')
+			->join('m_agama', 'm_siswa.agama = m_agama.id')
+			->where('m_siswa.id_siswa', $id_pendidik)->get();
+		}
+		return $hasil->result();
+	}
 }

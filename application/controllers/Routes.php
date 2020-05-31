@@ -59,7 +59,7 @@ class Routes extends CI_Controller {
 		$data['menu'] = 'data';
 		$data['submenu'] = 'data_user';
 		$data['submenu2'] = '';
-		$data['data_center'] = "Data/pengajar/";
+		$data['data_center'] = "Data/user/";
 		$this->load->view('template/v_header2', $data);
 		$this->load->view('data_center/v_data');
 		$this->load->view('template/v_footer');

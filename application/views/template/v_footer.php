@@ -3,7 +3,7 @@
 <footer class="footer container-fluid pl-30 pr-30">
 	<div class="row">
 		<div class="col-sm-12">
-			<p>2017 &copy; Magilla. Pampered by Hencework | OPSD Team ILCS</p>
+			<p>2017 &copy; Magilla. Pampered by Hencework | Team Fer</p>
 		</div>
 	</div>
 </footer>

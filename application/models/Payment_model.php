@@ -63,7 +63,7 @@ class Payment_model extends CI_Model {
 
 	public function update_payment($id, $amount){
 		$this->db->trans_start();
-		$this->db->query("UPDATE payment set dibayar = dibayar+'".$amount."', catatan = 'Belum lunas', status = '2' WHERE id = '".$id."'");
+		$this->db->query("UPDATE payment set dibayar = dibayar+'".$amount."', catatan = 'Belum lunas' WHERE id = '".$id."'");
 		$this->db->trans_complete();
 		if ($this->db->affected_rows() == '1') {
 			return true;

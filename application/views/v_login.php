@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>Login | iTask HSPG</title>
+	<title>Login | HSPG.online</title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="<?php echo base_url();?>assets/icon.ico">
@@ -29,7 +29,7 @@
 			<div class="sp-logo-wrap pull-left">
 				<a href="index.html">
 					<img class="brand-img mr-10" src="<?php echo base_url();?>assets/dist/img/logo.png" alt="brand"/>
-					<span class="brand-text">iTask HSPG</span>
+					<span class="brand-text">HSPG.online</span>
 				</a>
 			</div>
 			<div class="clearfix"></div>
@@ -45,7 +45,7 @@
 							<div class="row">
 								<div class="col-sm-12 col-xs-12">
 									<div class="mb-30">
-										<h3 class="text-center txt-dark mb-10">Login to iTask</h3>
+										<h3 class="text-center txt-dark mb-10">Login to HSPG.online</h3>
 									</div>	
 									<div class="form-wrap">
 										<?php echo $this->session->flashdata('salah_pass');?>
