@@ -18,7 +18,7 @@ Class Doc extends CI_Controller{
         $nama_siswa = $row->nama_siswa;
         $pdf = new FPDF('p','mm','A4');
         /*$myImage = "images/logos/mylogo.jpg";  */
-        $image = base_url('assets/dist/img/')."logohd.png";
+        $image = base_url('')."assets/dist/img/logohd.png";
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($image,30,10,-300);
