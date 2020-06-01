@@ -14,7 +14,7 @@
 						<div class="panel panel-default card-view">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert_object">Tambah Pengajar Baru</button>
+									<button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert_object">Tambah Staff Baru</button>
 								</div>
 								<div class="pull-right">
 									<a href="#" class="pull-left inline-block refresh mr-15" id="refresh_pendidik">
@@ -31,8 +31,9 @@
 											<table id="datable_2" class="table table-hover mb-0">
 												<thead>
 													<tr>
-														<th class="txt-dark">NIK Pendidik</th>
-														<th class="txt-dark">Nama Pendidik</th>
+														<th class="txt-dark">NIK</th>
+														<th class="txt-dark">Nama</th>
+														<th class="txt-dark">Jenis Staff</th>
 														<th class="txt-dark">Status</th>
 														<th class="txt-dark">Aksi</th>
 													</tr>
@@ -120,8 +121,9 @@
 				for(i=0; i<data.length; i++){
 					html += 
 					'<tr">'+
+					'<td>'+data[i].NAMA+'</td>'+
 					'<td>'+data[i].NIK+'</td>'+
-					'<td>'+data[i].NAMA+'</td>';
+					'<td>'+data[i].NAMA_STAFF+'</td>';
 					if (data[i].STATUS == '1') {
 						html +=
 						'<td><span class="label label-success">AKTIF</span></td>';

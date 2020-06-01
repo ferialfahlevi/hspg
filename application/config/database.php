@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default'] = array(
+/*$db['default'] = array(
 'hostname' => 'localhost',
 'username' => 'root',
 'password' => '',
@@ -86,9 +86,9 @@ $db['default'] = array(
 'cachedir' => '',
 'char_set' => 'utf8',
 'dbcollat' => 'utf8_general_ci'
-);
+);*/
 
-/*$db['default'] = array(
+$db['default'] = array(
 'hostname' => 'localhost',
 'username' => 'u784799559_admin_tebet',
 'password' => 'hspg_t3b3t',
@@ -101,4 +101,4 @@ $db['default'] = array(
 'cachedir' => '',
 'char_set' => 'utf8',
 'dbcollat' => 'utf8_general_ci'
-);*/
+);

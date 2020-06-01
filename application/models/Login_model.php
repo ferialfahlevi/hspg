@@ -8,7 +8,7 @@ class Login_model extends CI_Model {
 	}
 
 	function get_user_info($username){
-		$this->db->select('username, nama_user, status, jenis_user, admin_user');
+		$this->db->select('id_user, username, nama_user, status, jenis_user, admin_user');
 		$this->db->where('username', $username);
 		return $this->db->get('m_user');
 	}

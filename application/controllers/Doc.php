@@ -5,6 +5,7 @@ Class Doc extends CI_Controller{
         parent::__construct();
         $this->load->library('pdf');
         $this->load->model('Data_model');
+        $this->load->model('Payment_model');
     }
     
     /*function index(){
@@ -16,9 +17,9 @@ Class Doc extends CI_Controller{
         foreach($data_siswa->result() as $row ):
 
         $nama_siswa = $row->nama_siswa;
-        $pdf = new FPDF('p','mm','A4');
+        $pdf = new Fpdf('p','mm','A4');
         /*$myImage = "images/logos/mylogo.jpg";  */
-        $image = base_url('')."assets/dist/img/logohd.png";
+        $image = "assets/dist/img/logohd.png";
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($image,30,10,-300);
@@ -38,7 +39,6 @@ Class Doc extends CI_Controller{
         $pdf->Line(30, 40, 150, 40);
         $pdf->SetFont('Times','B',12);
         $pdf->Cell(90,6,'A. BIODATA SISWA',0,1,'C');
-        $nama = 'FERIAL FAHLEVI';
         // $pdf->Cell(95,6,$nama,0,0);
         $pdf->SetFont('Times','',12);
 
@@ -266,9 +266,19 @@ Class Doc extends CI_Controller{
     }
 
     function invoice(){
+        $kondisi = $this->input->post('kondisi');
+        $id_siswa = $this->input->post('id_siswa');
+        $jatuh_tempo = $this->input->post('jatuh_tempo');
+
+        /*$identitas = $this->Payment_model->show_nama_siswa($id_siswa);*/
+        $identitas = $this->Payment_model->show_nama_siswa($id_siswa);
+        /*selected_invoice*/
+        $data_invoice = $this->Payment_model->selected_invoice($kondisi);
+        
         $pdf = new FPDF('p','mm','A4');
         /*$myImage = "images/logos/mylogo.jpg";  */
-        $image = base_url('assets/dist/img/')."logohd.png";
+        // $image = base_url('assets/dist/img/')."logohd.png";
+        $image = "assets/dist/img/logohd.png";
         // membuat halaman baru
         $pdf->AddPage();
         $pdf->Image($image,10,10,-300);
@@ -285,13 +295,20 @@ Class Doc extends CI_Controller{
         $pdf->Line(10, 40, 198, 40);
 
         $pdf->Cell(10,7,'',0,1);
+        $pdf->SetFont('Times','',12);
+        $pdf->Cell(45,6,'Perihal: Invoice Siswa/i HSPG Jakarta Selatan',0,0);
+
+        $pdf->Cell(10,7,'',0,1);
         $pdf->SetFont('Times','B',12);
         $pdf->Cell(45,6,'Kepada Yth,',0,0);
-        $nama = 'FERIAL FAHLEVI';
         // $pdf->Cell(95,6,$nama,0,0);
         $pdf->Cell(27,6,'',0,0);
         $pdf->Cell(20,6,'',0,1);
-        $pdf->Cell(45,6, 'Bpk/Ibu Orang Tua/Wali   '. $nama,0,1);
+
+        foreach($identitas->result() as $row ):
+        $nama_siswa = $row->nama_siswa;
+        $pdf->Cell(45,6, 'Bpk/Ibu Orang Tua/Wali   '. $row->nama_siswa,0,1);
+        endforeach;
 
         // $pdf->Cell(200,6, 'FERIAL' ,0,1);
         $pdf->Cell(45,6, 'Di Tempat' ,0,1);
@@ -317,38 +334,37 @@ Class Doc extends CI_Controller{
         $pdf->Cell(32,6,'JATUH TEMPO',1,1, 'C');
         $pdf->SetFont('Times','',12);
 
-        $pdf->Cell(20,6, '1.',1, 0,'C');
+        $nomor_inv = 1;
+        $jumlah_tagihan = 0;
+        foreach($data_invoice->result() as $row ):
+        $pdf->Cell(20,6, $nomor_inv.'.',1, 0,'C');
+        if ($row->jenis_payment == '7') {
+            $pdf->Cell(87,6, $row->PEMBAYARAN.' Bulan '.$row->NAMA_BULAN,1,0);
+        } else {
+            $pdf->Cell(87,6, 'Uang '.$row->PEMBAYARAN,1,0);
+        }
+        $pdf->Cell(49,6, 'Rp. '.$row->KEKURANGAN,1,0);
+        $pdf->Cell(32,6, date('d F Y', strtotime($jatuh_tempo)),1,1);
+        $jumlah_tagihan += $row->KEKURANGAN2;
+        $nomor_inv++;
+        endforeach;
+
+        /*$pdf->Cell(20,6, '2.',1, 0,'C');
         $pdf->Cell(87,6, 'RINCIANNNN',1,0);
         $pdf->Cell(49,6, 'JUMLAAHHHH',1,0);
-        $pdf->Cell(32,6, '10 DES 2010',1,1);
-        $pdf->Cell(20,6, '2.',1, 0,'C');
-        $pdf->Cell(87,6, 'RINCIANNNN',1,0);
-        $pdf->Cell(49,6, 'JUMLAAHHHH',1,0);
-        $pdf->Cell(32,6, '',1,1);
+        $pdf->Cell(32,6, date('d F Y', strtotime($jatuh_tempo)),1,1);*/
 
         $pdf->Cell(20,6, '',1, 0);
         $pdf->Cell(87,6, 'TOTAL',1,0);
-        $pdf->Cell(49,6, 'Rp. SSEKIAN',1,0);
-        $pdf->Cell(32,6, '',1,1); //
-        $pdf->Cell(20,6, '',1, 0);
-        $pdf->Cell(87,6, '',1,0);
-        $pdf->Cell(49,6, '',1,0);
-        $pdf->Cell(32,6, '',1,1); //
-        $pdf->Cell(20,6, '',1, 0);
-        $pdf->Cell(87,6, '',1,0);
-        $pdf->Cell(49,6, '',1,0);
-        $pdf->Cell(32,6, '',1,1); //
-        $pdf->Cell(20,6, '',1, 0);
-        $pdf->Cell(87,6, '',1,0);
-        $pdf->Cell(49,6, '',1,0);
+        $pdf->Cell(49,6, 'Rp. '.number_format($jumlah_tagihan),1,0);
         $pdf->Cell(32,6, '',1,1); //
 
         $pdf->Cell(10,7,'',0,1);
         $pdf->Cell(10,7,'',0,1);
 
         $pdf->SetFont('Times','',12);
-        $pdf->Cell(45,6, 'Untuk pembayaran dapat melalui cash atau transfer ke Bank BCA dengan nomor rekening 6290297212',0,1);
-        $pdf->Cell(45,6, 'a/n Nurul Isyana atau Bank BNI dengan nomor rekening 852239958 a/n PT. Arrahman Harapan Agung.',0,1);
+        $pdf->Cell(45,6, 'Untuk pembayaran dapat melalui cash atau transfer ke Bank BCA dengan nomor rekening 6580555169',0,1);
+        $pdf->Cell(45,6, 'a/n Bambang Purnomo atau Bank BNI dengan nomor rekening 852239958 a/n PT. Arrahman Harapan Agung.',0,1);
         $pdf->Cell(45,6, 'Mohon melakukan konfirmasi atau mengirimkan bukti transfer setelah transfer via wa / telefon',0,1);
         $pdf->Cell(45,6, 'ke nomor 081319857574 / 087777447160 atau via email ke info@homeschoolingjaksel.com.',0,1);
 
@@ -356,11 +372,13 @@ Class Doc extends CI_Controller{
         $pdf->Cell(10,7,'',0,1);
         $pdf->Cell(10,7,'',0,1);
         $pdf->Cell(10,7,'',0,1);
-        $pdf->Cell(45,6, '          Jakarta, 30 Desember 2019          ',0,1);
+        $pdf->Cell(45,6, '          Jakarta,      '.date('d F Y').'          ',0,1);
         $pdf->Cell(45,6, 'School Principal HSPG Jakarta Selatan    ',0,1);
         $pdf->Cell(10,7,'',0,1);
         $pdf->Cell(10,7,'',0,1);
-        $pdf->Cell(45,6, '                 NURUL ISYANA',0,1);
-        $pdf->Output();
+        $pdf->Cell(45,6, '             NURUL ISYANA, S.Pd',0,1);
+        $pdf->Cell(125,6,'',0,0, 'R');
+        $pdf->Cell(50,6,'Printed By: '.$_SESSION['logged_in']['nama_user'],0,0, 'R');
+        $pdf->Output('D','INVOICE'.$nama_siswa.date('m/d/Y').'.pdf');
     }
 }

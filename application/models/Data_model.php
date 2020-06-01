@@ -15,8 +15,6 @@ class Data_model extends CI_Model {
 			");
 			return $hasil->result();
 		} else {
-			// $this->db->where('id_siswa', $id);
-			// return $this->db->get('m_siswa');
 			return $query = $this->db->select('m_siswa.*, m_agama.nama_agama, SUBSTRING(m_siswa.no_induk, 4, 2) as tahun_masuk, kelas.kode_kelas as kode_kelas, m_periode.periode as periode, kelas.semester as semester, m_kelas.nama_kelas as nama_kelas, m_kelas.sekolah as jenjang')
 			->from('m_siswa')
 			->join('kelas', 'm_siswa.id_siswa = kelas.id_siswa')
@@ -24,20 +22,6 @@ class Data_model extends CI_Model {
 			->join('m_agama', 'm_siswa.agama = m_agama.id')
 			->join('m_periode', 'kelas.periode = m_periode.id')
 			->where('m_siswa.id_siswa', $id)->get();
-
-			/*$this->db->select('*');
-$this->db->from('blogs');
-$this->db->join('comments', 'comments.id = blogs.id');
-$this->db->join('authors', 'authors.id = comments.author_id');
-			$hasil = $this->db->query("
-			SELECT m_siswa.*, m_agama.nama_agama, SUBSTRING(m_siswa.no_induk, 4, 2) as tahun_masuk, kelas.kode_kelas as kode, m_kelas.nama_kelas as nama_kelas
-			FROM m_siswa
-			INNER JOIN m_agama ON m_siswa.agama = m_agama.id
-			INNER JOIN kelas ON m_siswa.id_siswa = kelas.id_siswa
-			INNER JOIN m_kelas ON kelas.kode_kelas = m_kelas.id_kelas
-			WHERE m_siswa.id_siswa = '".$id."'
-			");
-			return $hasil->get();*/
 		}
 	}
 	public function insert_kelas($no_induk){
@@ -67,13 +51,12 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 	public function show_pendidik($id_pendidik = FALSE){
 		if ($id_pendidik === FALSE) {
 			$hasil = $this->db->query("
-			SELECT id_pendidik as ID, nik_pendidik as NIK, nama_pendidik as NAMA, status as STATUS
-			FROM m_pendidik
+			SELECT p.id_pendidik as ID, p.nik_pendidik as NIK, p.nama_pendidik as NAMA, p.status as STATUS, s.nama_staff as NAMA_STAFF
+			FROM m_pendidik p
+			INNER JOIN m_staff s ON p.jenis_staff = s.id
 			");
 			return $hasil->result();
 		} else {
-			// $this->db->where('id_siswa', $id);
-			// return $this->db->get('m_siswa');
 			return $query = $this->db->select('m_siswa.*, m_agama.nama_agama')
 			->from('m_siswa')
 			->join('m_agama', 'm_siswa.agama = m_agama.id')
@@ -82,8 +65,6 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 	}
 
 	public function show_wali($id){
-		/*$this->db->where('id_siswa', $id);
-		return $this->db->get('m_wali');*/
 		return $query = $this->db->select('m_wali.*, m_agama.nama_agama')
 			->from('m_wali')
 			->join('m_agama', 'm_wali.agama_wali = m_agama.id')
@@ -91,8 +72,6 @@ $this->db->join('authors', 'authors.id = comments.author_id');
 	}
 
 	public function show_wali1($id, $jenis){
-		/*$this->db->where('id_siswa', $id);
-		return $this->db->get('m_wali');*/
 		return $query = $this->db->select('m_wali.*, m_agama.nama_agama')
 			->from('m_wali')
 			->join('m_agama', 'm_wali.agama_wali = m_agama.id')

@@ -64,6 +64,8 @@
 	<script src="<?php echo base_url();?>assets/vendors/bower_components/Flot/jquery.flot.stack.js"></script>
 	<script src="<?php echo base_url();?>assets/vendors/bower_components/Flot/jquery.flot.crosshair.js"></script>
 	<script src="<?php echo base_url();?>assets/vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+
+	<script src="<?php echo base_url();?>assets/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
 </head>
 
 <body>
@@ -396,7 +398,7 @@
 							</ul>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'data_pengajar'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/pengajar');?>">Data Pengajar</a>
+							<a class="<?php if($submenu == 'data_pengajar'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/pengajar');?>">Pengajar dan Staff</a>
 						</li>
 						<li>
 							<a class="<?php if($submenu == 'data_user'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/user');?>">Data User</a>

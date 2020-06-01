@@ -192,4 +192,11 @@ class Payment extends CI_Controller {
 		$hasil = $this->Payment_model->data_non_spp($id, $periode);
 		echo json_encode($hasil);
 	}
+
+	public function show_unpaid(){
+		$id = $this->input->post('id');
+		$id_periode = $this->input->post('id_periode');
+		$hasil = $this->Payment_model->show_unpaid($id, $id_periode);
+		echo json_encode($hasil);
+	}
 }

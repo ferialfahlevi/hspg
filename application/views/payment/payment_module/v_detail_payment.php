@@ -20,16 +20,15 @@
 									<a href="<?php echo base_url('Payment/payment');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Payment</a>
 								</div>
 								<div class="pull-right">
-									<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle" type="button" onclick="javascript:refresh_payment()"><i class="zmdi zmdi-replay"></i></button>
-									<!-- <a href="javascript:refresh_payment();" class="pull-left inline-block mr-15">
-										<i class="zmdi zmdi-replay"></i>
-									</a> -->
-									<div class="pull-left inline-block dropdown">
-										<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle" type="button"><i class="zmdi zmdi-more-vert"></i></button>
+									<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle btn-sm" type="button" onclick="javascript:refresh_payment()" data-toggle='tooltip' data-placement='top' title='REFRESH'><i class="zmdi zmdi-replay"></i></button>
+									<div class="inline-block dropdown">
+										<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle btn-sm" type="button"><i class="zmdi zmdi-more-vert"></i></button>
 										<ul class="dropdown-menu bullet dropdown-menu-right"  role="menu">
 											<li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#modal_new_payment" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>Generate Payment</a></li>
 										</ul>
 									</div>
+									<a data-toggle="modal" data-target="#generate_invoice" class="btn btn-default btn-icon-anim btn-circle btn-sm" data-toggle='tooltip' data-placement='top' title='CETAK INVOICE'><i class="fa fa-print"></i></a>
+									<!-- href="<?php echo base_url('Doc/form_registrasi/')?><?php echo $this->uri->segment('3');?>" -->
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -489,6 +488,61 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="generate_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h5 class="modal-title" id="exampleModalLabel1">Cetak Invoice Pembayaran</h5>
+			</div>
+			<div class="modal-body">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12">
+								<div class="form-wrap">
+									<form>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<div class="table-wrap">
+													<table class="table table-hover mb-0">
+														<thead>
+															<tr>
+																<th class="txt-dark">Pembayaran Belum Lunas</th>
+																<th class="txt-dark">Kekurangan</th>
+																<th class="txt-dark"></th>
+															</tr>
+														</thead>
+														<tbody id="unpaid_table">
+														</tbody>
+													</table>
+												</div>	
+												<div class="clearfix"></div>
+												<p><i>Catatan: </i> Jika pembayaran tidak ada, mohon dicek JUMLAH HARUS DIBAYAR pada tiap pembayaran</p>
+												<hr class="light-grey-hr"/>
+												<div class="col-lg-12">
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label class="control-label mb-10" for="exampleInputuname_1">Jatuh Tempo</label>
+															<input class="form-control inline-block" type="date" id="jatuh_tempo" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btn_generate_invoice" class="btn btn-primary">Edit Pembayaran</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	function get_spp(){
 		id = '<?php echo $this->uri->segment('3');?>';
@@ -639,6 +693,20 @@
 		// location.reload();
 		get_spp();
 		get_non_spp();
+		show_unpaid();
+		notif_refresh('Sukses Memperbarui Data');
+	}
+
+	function notif_refresh(message){
+		$.toast({
+			heading: message,
+			text: '',
+			position: 'top-right',
+			loaderBg:'#f2b701',
+			icon: 'success',
+			hideAfter: 3500, 
+			stack: 6
+		});
 	}
 
 	function notif_sukses(message, id){
@@ -675,10 +743,10 @@
 			success : function(data){
 				$('#modal_edit_payment').modal('hide');
 				if (data == true) {
-						notif_sukses(message, id);
-					} else if (data == false) {
-						notif_gagal('Unable to process', id);
-					}
+					notif_sukses(message, id);
+				} else if (data == false) {
+					notif_gagal('Unable to process', id);
+				}
 			},
 			error: function(xhr, status, error){
 				var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -687,8 +755,7 @@
                     // $('#errorMessage').html(errorMessage);
                 }
             });
-		get_spp();
-		get_non_spp();
+		refresh_payment();
 	}
 
 	function generate_periode(){
@@ -708,8 +775,7 @@
                     // $('#errorMessage').html(errorMessage);
                 }
             });
-		get_spp();
-		get_non_spp();
+		refresh_payment();
 	}
 
 	dropdown_periode();
@@ -780,8 +846,7 @@
                 }
             });
 			update_log(id, '0', jenis_log);
-			get_spp();
-			get_non_spp();
+			refresh_payment();
 		}
 	}
 
@@ -817,10 +882,76 @@
 				}
 			});
 			update_log(id, '0', 'reset');
-			get_spp();
-			get_non_spp();
+			refresh_payment();
 		}
 	}
+
+	show_unpaid();
+	function show_unpaid(){
+		id = '<?php echo $this->uri->segment('3');?>';
+		periode = '<?php echo $this->uri->segment('4');?>';
+
+		$.ajax({
+			type    : "POST",
+			url     : "<?php echo base_url('Payment/show_unpaid/');?>",
+			dataType    : 'json',
+			data : {id:id, id_periode:periode},
+			success : function(data){
+				var i;
+				var html = '';
+				for(i=0; i<data.length; i++){
+					html += 
+					'<tr">';
+					if (data[i].jenis_payment == '7') {
+						html += '<td>'+data[i].PEMBAYARAN+' Bulan '+data[i].NAMA_BULAN+'</td>';
+					} else {
+						html += '<td>'+data[i].PEMBAYARAN+'</td>';
+					}
+					html +=
+					'<td>Rp. '+data[i].KEKURANGAN+'</td>'+
+					'<td>'+
+					'<div class="checkbox checkbox-success">'+
+					'<input name="today_check" id="checkbox'+i+'" type="checkbox" value="'+data[i].ID+'">'+
+					'<label for="checkbox'+i+'">'+
+					// data[i].PEMBAYARAN+
+					// 'checkbox'+i+
+					'Tambahkan'+
+					'</label>'+
+					'</div>'+
+					'</td>'+
+					'</tr>';
+				}
+				$('#unpaid_table').html(html);
+			}
+		});
+	}
+	$('#btn_generate_invoice').on('click', function() {
+		/*alert("CEK");
+		var checkedValue = document.querySelector('.invoice_checkbox:checked').value;
+		alert(checkedValue);*/
+		var id = '<?php echo $this->uri->segment('3');?>';
+		var jatuh_tempo =$('#jatuh_tempo').val();
+		var ck_string = "";
+		$.each($("input[name='today_check']:checked"), function(){  
+			// ck_string += "~"+$(this).val();
+			ck_string += " or p.id = '"+$(this).val()+"'";
+		});
+		if (ck_string){
+			ck_string = ck_string .substring(4);
+			// alert(ck_string);
+			$.ajax({
+				type : "POST",
+				url     : '<?php echo base_url('Doc/invoice/');?>',
+				// dataType : "JSON",
+				data : {kondisi:ck_string, id_siswa:id, jatuh_tempo:jatuh_tempo},
+				success: function(data){
+					notif_sukses('Sukses mencetak invoice', '');
+				}
+			});
+		}else{
+			alert('Pilih setidaknya satu pembayaran');
+		}
+	});
 
 	$('#update_payment').on('click', function() {
 		var message = 'Sukses meng-update pembayaran';
@@ -841,10 +972,10 @@
 					data : {id:id},
 					success : function(data){
 						if (data == true) {
-						notif_sukses(message, id);
-					} else if (data == false) {
-						notif_gagal('Unable to process', id);
-					}
+							notif_sukses(message, id);
+						} else if (data == false) {
+							notif_gagal('Unable to process', id);
+						}
 					}, error: function(xhr, status, error){
 						var errorMessage = xhr.status + ': ' + xhr.statusText
 						// alert('Error - ' + errorMessage);
@@ -854,8 +985,7 @@
                     });
 				update_log(id, dibayar, jenis_log_update);
 				update_log(id, '0', jenis_log_lunas);
-				get_spp();
-				get_non_spp();
+				refresh_payment();
 			}/*
 		} else if (kekurangan > dibayar) {
 			// alert(dibayar+kekurangan);
@@ -870,10 +1000,10 @@
 					data : {id:id, dibayar:dibayar},
 					success : function(data){
 						if (data == true) {
-						notif_sukses(message, id);
-					} else if (data == false) {
-						notif_gagal('Unable to process', id);
-					}
+							notif_sukses(message, id);
+						} else if (data == false) {
+							notif_gagal('Unable to process', id);
+						}
 					}, error: function(xhr, status, error){
 						var errorMessage = xhr.status + ': ' + xhr.statusText
 				// alert('Error - ' + errorMessage);
@@ -882,8 +1012,7 @@
                 }
             });
 				update_log(id, dibayar, jenis_log_update);
-				get_spp();
-				get_non_spp();
+				refresh_payment();
 			}
 		}
 		$('#modal_update').modal('hide');
@@ -935,11 +1064,6 @@
 		});
 	}
 
-	/*$('[name="update_payment"]').on('click',function(){
-		var id = $(this).attr('data');
-		
-	});*/
-
 	function log_payment(id){
 		$('#modal_log_payment').modal('show');
 		$.ajax({
@@ -981,7 +1105,6 @@
 					$('#id_payment_ed').val(data[i].ID);
 					$('#jumlah_payment_ed').val(data[i].JUMLAH2);
 				}
-				/*$('#show_detail_payment').html(html);*/
 			}
 		});
 	}

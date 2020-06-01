@@ -267,4 +267,31 @@ class Payment_model extends CI_Model {
 		return $hasil->result();
 	}
 
+	public function show_unpaid($id_siswa, $id_periode){
+		$hasil = $this->db->query("
+			SELECT p.id as ID, p.id_periode as ID_PERIODE, m_periode.periode as PERIODE, 
+			p.jenis_payment, m_payment.nama_payment as PEMBAYARAN, p.bulan as BULAN, m_bulan.nama_bulan as NAMA_BULAN,
+			FORMAT(p.jumlah, 0) as JUMLAH, FORMAT((p.jumlah - p.dibayar), 0) as KEKURANGAN, p.catatan as CATATAN
+			FROM payment p
+			INNER JOIN m_payment ON p.jenis_payment = m_payment.id
+			INNER JOIN m_bulan ON p.bulan = m_bulan.id
+			INNER JOIN m_periode ON p.id_periode = m_periode.id
+			WHERE p.id_siswa = '".$id_siswa."' and p.status = '0' and p.id_periode = '".$id_periode."' and p.jumlah > 0
+			ORDER BY ID ASC
+			");
+		return $hasil->result();
+	}
+
+	public function selected_invoice($kondisi){
+		return $query = $this->db->query("
+			SELECT p.id as ID, p.id_periode as ID_PERIODE,
+			p.jenis_payment, m_payment.nama_payment as PEMBAYARAN, p.bulan as BULAN, m_bulan.nama_bulan as NAMA_BULAN, FORMAT((p.jumlah - p.dibayar), 0) as KEKURANGAN, (p.jumlah - p.dibayar) as KEKURANGAN2
+			FROM payment p
+			INNER JOIN m_payment ON p.jenis_payment = m_payment.id
+			INNER JOIN m_bulan ON p.bulan = m_bulan.id
+			INNER JOIN m_periode ON p.id_periode = m_periode.id
+			WHERE ".$kondisi."
+			ORDER BY ID ASC");
+	}
+
 }

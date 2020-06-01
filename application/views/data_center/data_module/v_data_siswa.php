@@ -97,7 +97,6 @@
 					html += 
 					'<td>'+
 					'<a href="<?php echo base_url('Data/siswa/');?>'+data[i].ID+'" class="btn btn-primary btn-icon-anim btn-circle btn-sm"><i class="fa fa-eye"></i></a>'+
-					'<a href="<?php echo base_url('Doc/form_registrasi/')?>" class="btn btn-success btn-icon-anim btn-circle btn-sm"><i class="fa fa-print"></i></a>'+
 					'</td>'+
 					'</tr>';
 				}
@@ -113,33 +112,5 @@
 				elements[ii].value = "";
 			}
 		}
-	});
-
-	$('#button_insert_siswa').on('click', function() {
-		var nama_object		=$('#nama_object_insert').val();
-		var ket		=$('#ket_insert').val();
-
-		var r = confirm("Apakah anda yakin untuk insert data?");
-		if (r == true) {
-
-			$.ajax({
-				type : "POST",
-				url  : "<?php echo base_url('Settings/insert_list_object')?>",
-				dataType : "JSON",
-				data : {nama_object:nama_object, ket:ket},
-				success: function(data){
-					alert('sukses!');
-					$('#modal_insert_object').modal('hide');
-					show_object();
-				},
-				error: function(xhr, status, error){
-					var errorMessage = xhr.status + ': ' + xhr.statusText
-                    // alert('Error - ' + errorMessage);
-                    $('#errorMessage').html(errorMessage);
-                }
-
-            });
-		}
-		return false;
 	});
 </script>

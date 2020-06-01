@@ -27,6 +27,16 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function insert_agenda(){
+		$data1 = array(
+			'id_user' => $this->input->post('id_user'),
+			'nama_agenda' => $this->input->post('nama_agenda'),
+			'keterangan_agenda' => $this->input->post('keterangan_agenda'),
+			'tanggal_agenda' => $this->input->post('tanggal_agenda'));
+		$hasil = $this->Dashboard_model->insert_agenda($data1);
+		echo json_encode($hasil);
+	}
+
 	public function show_active_student(){
 		$parameter = $this->input->post('parameter');
 		$hasil = $this->Dashboard_model->show_active_student($parameter);
@@ -40,6 +50,12 @@ class Dashboard extends CI_Controller {
 
 	public function show_semester(){
 		$hasil = $this->Dashboard_model->show_semester();
+		echo json_encode($hasil);
+	}
+
+	public function show_agenda(){
+		$id_user = $this->input->post('id_user');
+		$hasil = $this->Dashboard_model->show_agenda($id_user);
 		echo json_encode($hasil);
 	}
 	
