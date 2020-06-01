@@ -88,6 +88,8 @@ $query_builder = TRUE;
 'dbcollat' => 'utf8_general_ci'
 );*/
 
+//OKE
+
 $db['default'] = array(
 'hostname' => 'localhost',
 'username' => 'u784799559_admin_tebet',
