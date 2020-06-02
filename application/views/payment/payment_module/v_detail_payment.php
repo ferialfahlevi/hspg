@@ -694,10 +694,10 @@
 		get_spp();
 		get_non_spp();
 		show_unpaid();
-		notif_refresh('Sukses Memperbarui Data');
+		/*notif_refresh('Sukses Memperbarui Data');*/
 	}
 
-	function notif_refresh(message){
+	/*function notif_refresh(message){
 		$.toast({
 			heading: message,
 			text: '',
@@ -707,7 +707,7 @@
 			hideAfter: 3500, 
 			stack: 6
 		});
-	}
+	}*/
 
 	function notif_sukses(message, id){
 		$.toast({

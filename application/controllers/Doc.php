@@ -275,7 +275,7 @@ Class Doc extends CI_Controller{
         /*selected_invoice*/
         $data_invoice = $this->Payment_model->selected_invoice($kondisi);
         
-        $pdf = new FPDF('p','mm','A4');
+        $pdf = new Fpdf('p','mm','A4');
         /*$myImage = "images/logos/mylogo.jpg";  */
         // $image = base_url('assets/dist/img/')."logohd.png";
         $image = "assets/dist/img/logohd.png";
