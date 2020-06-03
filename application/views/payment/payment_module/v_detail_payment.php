@@ -28,6 +28,7 @@
 										</ul>
 									</div>
 									<a data-toggle="modal" data-target="#generate_invoice" class="btn btn-default btn-icon-anim btn-circle btn-sm" data-toggle='tooltip' data-placement='top' title='CETAK INVOICE'><i class="fa fa-print"></i></a>
+									<a data-toggle="modal" data-target="#quick_update" class="btn btn-default btn-icon-anim btn-circle btn-sm" data-toggle='tooltip' data-placement='top' title='QUICK EDIT NOMINAL'><i class="fa fa-edit"></i></a>
 									<!-- href="<?php echo base_url('Doc/form_registrasi/')?><?php echo $this->uri->segment('3');?>" -->
 								</div>
 								<div class="clearfix"></div>
@@ -538,12 +539,67 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn_generate_invoice" class="btn btn-primary">Edit Pembayaran</button>
+				<button type="button" id="btn_generate_invoice" class="btn btn-primary">Cetak Invoice</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="quick_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h5 class="modal-title" id="exampleModalLabel1">Quick Update Nominal Pembayaran</h5>
+			</div>
+			<div class="modal-body">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-12 col-xs-12">
+								<div class="form-wrap">
+									<form>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<div class="table-wrap">
+													<table class="table table-hover mb-0">
+														<thead>
+															<tr>
+																<th class="txt-dark">Pembayaran</th>
+																<th class="txt-dark">Nominal Yang Harus Dibayar</th>
+																<th class="txt-dark"></th>
+															</tr>
+														</thead>
+														<tbody id="show_quick_edit">
+														</tbody>
+													</table>
+												</div>	
+												<div class="clearfix"></div>
+												<hr class="light-grey-hr"/>
+												<div class="col-lg-12">
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label class="control-label mb-10" for="exampleInputuname_1">Edit Nominal</label>
+															<input class="form-control inline-block" type="text" id="edit_nominal" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btn_edit_nominal" class="btn btn-primary">Edit Nominal</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
+	get_spp();
 	function get_spp(){
 		id = '<?php echo $this->uri->segment('3');?>';
 		periode = '<?php echo $this->uri->segment('4');?>';
@@ -558,6 +614,7 @@
 				var header = '';
 				var detail = '';
 				var show_detail = '';
+				var quick_edit = '';
 				for(i=0; i<data.length; i++){
 					header += 
 					'<th class="txt-dark">'+data[i].SINGKAT+'</th>';
@@ -604,13 +661,62 @@
 					'</div>'+
 					'</td>'+
 					'</tr>';
+
+					quick_edit += 
+					'<tr">'+
+					'<td>'+data[i].BULAN2+'</td>';
+					quick_edit +=
+					'<td>Rp. '+data[i].JUMLAH+'</td>'+
+					'<td>'+
+					'<div class="checkbox checkbox-success">'+
+					'<input name="nominal_edit" id="checkbox_nominal'+i+'" type="checkbox" value="'+data[i].ID+'">'+
+					'<label for="checkbox_nominal'+i+'">'+
+					// data[i].PEMBAYARAN+
+					// 'checkbox'+i+
+					'Tambahkan'+
+					'</label>'+
+					'</div>'+
+					'</td>'+
+					'</tr>';
 				}
 				$('#show_spp').html(header);
 				$('#show_spp_detail').html(detail);
 				$('#detail_show_spp_detail').html(show_detail);
+				$('#show_quick_edit').html(quick_edit);
 			}
 		});
 	}
+
+	$('#btn_edit_nominal').on('click', function() {
+		/*alert("CEK");
+		var checkedValue = document.querySelector('.invoice_checkbox:checked').value;
+		alert(checkedValue);*/
+		var nominal = '0';
+		var id = '<?php echo $this->uri->segment('3');?>';
+		nominal =$('#edit_nominal').val();
+		var ck_string = "";
+		$.each($("input[name='nominal_edit']:checked"), function(){  
+			// ck_string += "~"+$(this).val();
+			ck_string += " or id = '"+$(this).val()+"'";
+		});
+		if (ck_string){
+			ck_string = ck_string .substring(4);
+			/*alert(ck_string);
+			alert('nominal'+nominal);*/
+			$.ajax({
+				type : "POST",
+				url     : '<?php echo base_url('Payment/edit_nominal');?>',
+				// dataType : "JSON",
+				data : {kondisi:ck_string, nominal:nominal},
+				success: function(data){
+					get_spp();
+					notif_sukses('Mengupdate nominal pembayaran', '');
+				}
+			});
+		}else{
+			alert('Pilih setidaknya satu spp');
+		}
+	});
 
 	function get_non_spp(){
 		id = '<?php echo $this->uri->segment('3');?>';

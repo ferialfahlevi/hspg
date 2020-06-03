@@ -199,4 +199,11 @@ class Payment extends CI_Controller {
 		$hasil = $this->Payment_model->show_unpaid($id, $id_periode);
 		echo json_encode($hasil);
 	}
+
+	public function edit_nominal(){
+		$kondisi = $this->input->post('kondisi');
+		$nominal = $this->input->post('nominal');
+		$hasil = $this->Payment_model->edit_nominal($kondisi, $nominal);
+		echo json_encode($hasil);
+	}
 }

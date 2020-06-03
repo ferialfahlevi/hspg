@@ -294,4 +294,19 @@ class Payment_model extends CI_Model {
 			ORDER BY ID ASC");
 	}
 
+	public function edit_nominal($kondisi, $nominal){
+		$this->db->trans_start();
+		$this->db->query("UPDATE payment set jumlah = '".$nominal."', tanggal_dibayar = NOW() WHERE ".$kondisi);
+		$this->db->trans_complete();
+		if ($this->db->affected_rows() == '1') {
+			return true;
+		} else {
+    		// any trans error?
+			if ($this->db->trans_status() === FALSE) {
+				return false;
+			}
+			return true;
+		}
+	}
+
 }
