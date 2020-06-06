@@ -21,6 +21,7 @@ class Login extends CI_Controller {
 	public function __construct() {
 	    parent::__construct();
 	    $this->load->model('Login_model');
+	    $this->load->model('Log_model');
 	}
 
 	public function index() {
@@ -51,6 +52,10 @@ class Login extends CI_Controller {
 				'status' => $row1['status'],
 				'jenis_user' => $row1['admin_user']);
 			$this->session->set_userdata('logged_in', $data_session);
+			$data_log = array(
+				'user' => $_SESSION['logged_in']['username'],
+				'activity' => 'login');
+			$this->Log_model->insert_log($data_log);
 			redirect();
 		} 
 		else
