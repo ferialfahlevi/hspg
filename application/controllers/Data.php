@@ -22,6 +22,7 @@ class Data extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Data_model');
+		$this->load->model('Log_model');
 		if(!isset($_SESSION['logged_in']['username'])){								
 			redirect('login');
 		}
@@ -40,6 +41,12 @@ class Data extends CI_Controller {
 	}
 
 	public function generate_nik(){
+		$data_log = array(
+			'user' => $_SESSION['logged_in']['username'],
+			'activity' => 'generate nik',
+			'keterangan' => '');
+		$this->Log_model->insert_log($data_log);
+
 		$kode_cabang 	= $this->input->post('kode_cabang');
 		$jenjang 		= $this->input->post('jenjang');
 		$current_year 	= $this->input->post('current_year');
@@ -49,8 +56,9 @@ class Data extends CI_Controller {
 
 	public function update_data_siswa(){
 		$id_siswa = $this->input->post('id_siswa');
+		$nama_siswa = strtoupper($this->input->post('nama_siswa'));
 		$data = array(
-			'nama_siswa' => strtoupper($this->input->post('nama_siswa')),
+			'nama_siswa' => $nama_siswa,
 			'no_induk' => strtoupper($this->input->post('no_induk')),
 			'jk_siswa' => strtoupper($this->input->post('jk_siswa')),
 			'gol_darah' => strtoupper($this->input->post('gol_darah')),
@@ -61,12 +69,19 @@ class Data extends CI_Controller {
 			'email' => $this->input->post('email'),
 			'date_updated' => date('Y-m-d H:i:s'));
 
+		$data_log = array(
+			'user' => $_SESSION['logged_in']['username'],
+			'activity' => 'mengupdate data siswa',
+			'keterangan' => 'mengupdate data siswa untuk '.$nama_siswa);
+		$this->Log_model->insert_log($data_log);
+
 		$data = $this->Data_model->update_siswa($id_siswa, $data);
 		echo json_encode($data);
 	}
 
 	public function update_alamat_siswa(){
 		$id_siswa = $this->input->post('id_siswa');
+		$nama_siswa = strtoupper($this->input->post('nama_siswa'));
 		$data = array(
 			'alamat_siswa' => strtoupper($this->input->post('alamat_siswa')),
 			'kota' => strtoupper($this->input->post('kota')),
@@ -75,6 +90,12 @@ class Data extends CI_Controller {
 			'kecamatan' => strtoupper($this->input->post('kecamatan')), 
 			'kelurahan' => strtoupper($this->input->post('kelurahan')),
 			'date_updated' =>  date('Y-m-d H:i:s'));
+
+		$data_log = array(
+			'user' => $_SESSION['logged_in']['username'],
+			'activity' => 'mengupdate alamat siswa',
+			'keterangan' => 'mengupdate alamat siswa untuk '.$nama_siswa);
+		$this->Log_model->insert_log($data_log);
 
 		$data = $this->Data_model->update_siswa($id_siswa, $data);
 		echo json_encode($data);
@@ -97,10 +118,18 @@ class Data extends CI_Controller {
 
 	public function update_info_siswa(){
 		$id_siswa = $this->input->post('id_siswa');
+		$nama_siswa = strtoupper($this->input->post('nama_siswa'));
+
 		$data = array(
 			'status' => $this->input->post('status'),
 			'jenis_pendidikan' => $this->input->post('jenis_pendidikan'),
 			'date_updated' =>  date('Y-m-d H:i:s'));
+
+		$data_log = array(
+			'user' => $_SESSION['logged_in']['username'],
+			'activity' => 'mengupdate info sekolah siswa',
+			'keterangan' => 'mengupdate info sekolah siswa untuk '.$nama_siswa);
+		$this->Log_model->insert_log($data_log);
 
 		$data = $this->Data_model->update_siswa($id_siswa, $data);
 		echo json_encode($data);
@@ -127,9 +156,10 @@ class Data extends CI_Controller {
 
 	public function insert_siswa(){
 		$no_induk = $this->input->post('nomor_induk_insert');
+		$nama_siswa = strtoupper($this->input->post('nama_lengkap_insert'));
 		$data1 = array(
 			'no_induk' => $no_induk,
-			'nama_siswa' => strtoupper($this->input->post('nama_lengkap_insert')),
+			'nama_siswa' => $nama_siswa,
 			'agama' => $this->input->post('agama_insert'),
 			'tempat_lahir' => strtoupper($this->input->post('tempat_lahir_insert')),
 			'tanggal_lahir' => $this->input->post('tanggal_lahir_insert'),
@@ -160,6 +190,12 @@ class Data extends CI_Controller {
 		$this->Data_model->update_siswa2($no_induk, $data2);
 		$this->Data_model->update_siswa2($no_induk, $data3);
 		$this->Data_model->insert_kelas($no_induk);
+
+		$data_log = array(
+			'user' => $_SESSION['logged_in']['username'],
+			'activity' => 'menambah siswa baru',
+			'keterangan' => 'menambah data siswa baru untuk '.$nama_siswa);
+		$this->Log_model->insert_log($data_log);
 
 		$id_siswa = $this->Data_model->cek_id($no_induk);
 		foreach($id_siswa->result() as $row ):

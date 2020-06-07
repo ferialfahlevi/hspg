@@ -34,8 +34,8 @@
 														<th class="txt-dark">Nama</th>
 														<th class="txt-dark">usernamename</th>
 														<th class="txt-dark">Status</th>
-														<th class="txt-dark">Privilege</th>
-														<th class="txt-dark">Aksi</th>
+														<th class="txt-dark">Hak Akses</th>
+														<th class="txt-dark"></th>
 													</tr>
 												</thead>
 												<tbody id="show_table_user">
@@ -205,28 +205,28 @@
 					'<td>';
 					if (data[i].prev_edit_payment == '1') {
 						html +=
-						'<span class="label label-primary">Edit Payment</span>';
+						'<span class="label label-info">Edit Payment</span>';
 					}
 					if (data[i].prev_tambah_payment == '1') {
 						html +=
-						'<span class="label label-primary">Tambah Payment</span>';
+						'<span class="label label-info">Tambah Payment</span>';
 					}
 					if (data[i].prev_edit_siswa == '1') {
 						html +=
-						'<span class="label label-primary">Edit Siswa</span>';
+						'<span class="label label-info">Edit Siswa</span>';
 					}
 					if (data[i].prev_tambah_siswa == '1') {
 						html +=
-						'<span class="label label-primary">Tambah Siswa</span>';
+						'<span class="label label-info">Tambah Siswa</span>';
 					}
 					if (data[i].prev_admin == '1') {
 						html +=
-						'<span class="label label-primary">Manage Admin</span>';
+						'<span class="label label-info">Manage Admin</span>';
 					}
 					html +=
 					'</td>';
 					html += 
-					'<td><a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>'+
+					'<td><a href="#" class="btn btn-primary btn-icon-anim btn-circle btn-sm"><i class="fa fa-eye"></i></a></td>'+
 					'</tr>';
 					html += 
 					'</tr>';

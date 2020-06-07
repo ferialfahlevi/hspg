@@ -35,7 +35,7 @@ class Data_model extends CI_Model {
 		return $hasil;
 	}
 
-	public function show_payment_siswa(){
+	/*public function show_payment_siswa(){
 		$hasil = $this->db->query("
 			SELECT m_siswa.id_siswa AS ID, m_siswa.no_induk AS NO_INDUK, 
 				m_siswa.nama_siswa AS NAMA, m_siswa.status AS STATUS,
@@ -46,7 +46,7 @@ class Data_model extends CI_Model {
 			WHERE status = '1'
 			");
 			return $hasil->result();
-	}
+	}*/
 
 	public function show_pendidik($id_pendidik = FALSE){
 		if ($id_pendidik === FALSE) {

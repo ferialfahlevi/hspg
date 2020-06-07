@@ -6,6 +6,7 @@ Class Doc extends CI_Controller{
         $this->load->library('pdf');
         $this->load->model('Data_model');
         $this->load->model('Payment_model');
+        $this->load->model('Log_model');
     }
     
     /*function index(){
@@ -17,6 +18,13 @@ Class Doc extends CI_Controller{
         foreach($data_siswa->result() as $row ):
 
         $nama_siswa = $row->nama_siswa;
+
+        $data_log = array(
+            'user' => $_SESSION['logged_in']['username'],
+            'activity' => 'cetak doc',
+            'keterangan' => 'cetak form registrasi '.$nama_siswa);
+        $this->Log_model->insert_log($data_log);
+
         $pdf = new Fpdf('p','mm','A4');
         /*$myImage = "images/logos/mylogo.jpg";  */
         $image = "assets/dist/img/logohd.png";
@@ -379,6 +387,11 @@ Class Doc extends CI_Controller{
         $pdf->Cell(45,6, '             NURUL ISYANA, S.Pd',0,1);
         $pdf->Cell(125,6,'',0,0, 'R');
         $pdf->Cell(50,6,'Printed By: '.$_SESSION['logged_in']['nama_user'],0,0, 'R');
+        $data_log = array(
+            'user' => $_SESSION['logged_in']['username'],
+            'activity' => 'cetak doc',
+            'keterangan' => 'cetak invoice '.$nama_siswa);
+        $this->Log_model->insert_log($data_log);
         $pdf->Output('D','INVOICE'.$nama_siswa.date('m/d/Y').'.pdf');
     }
 }

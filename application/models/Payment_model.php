@@ -44,6 +44,64 @@ class Payment_model extends CI_Model {
 			WHERE id_siswa = '".$id."' AND jenis_payment = '7' AND id_periode = '".$periode."' LIMIT 1");
 	}
 
+	public function periode_ke($id){
+		$hasil = $this->db->query("
+			SELECT nama_periode as NAMA_PERIODE, periode as PERIODE
+			FROM m_periode
+			WHERE id = '".$id."' LIMIT 1
+			");
+		return $hasil->result();
+	}
+
+	public function show_payment($periode){
+		$hasil = $this->db->query("
+			SELECT s.id_siswa as ID_SISWA, s.nama_siswa as NAMA, s.jenis_pendidikan as PENDIDIKAN,
+			(SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '1' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as PENDAFTARAN,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '2' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as PANGKAL,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '3' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as HEREGISTRASI,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '4' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as UJIAN,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '5' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as KEGIATAN1,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '6' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as KEGIATAN2,
+			    
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '7' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as JULI,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '8' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as AGUSTUS,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '9' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as SEPTEMBER,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '10' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as OKTOBER,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '11' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as NOVEMBER,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '12' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as DESEMBER,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '1' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as JANUARI,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '2' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as FEBRUARI,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '3' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as MARET,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '4' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as APRIL,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '5' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as MEI,
+			    (SELECT f.status FROM payment f 
+			    WHERE f.jenis_payment = '7' and f.bulan = '6' and f.id_periode = '".$periode."' and f.id_siswa = p.id_siswa LIMIT 1) as JUNI
+			FROM m_siswa s
+			INNER JOIN payment p ON p.id_siswa = s.id_siswa
+			WHERE s.status = '1'
+			GROUP BY s.id_siswa
+			ORDER BY s.nama_siswa ASC
+			");
+		return $hasil->result();
+	}
+
 	//PAYMENT ACTION
 	public function set_lunas($id){
 		$this->db->trans_start();
@@ -209,18 +267,19 @@ class Payment_model extends CI_Model {
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, jumlah, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '0', '5', '2500000', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, jumlah, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '0', '6', '2500000', '".$_SESSION['logged_in']['username']."')");
 
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '1', '7', '".$_SESSION['logged_in']['username']."')");
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '2', '7', '".$_SESSION['logged_in']['username']."')");
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '3', '7', '".$_SESSION['logged_in']['username']."')");
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '4', '7', '".$_SESSION['logged_in']['username']."')");
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '5', '7', '".$_SESSION['logged_in']['username']."')");
-		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '6', '7', '".$_SESSION['logged_in']['username']."')");
+		
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '7', '7', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '8', '7', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '9', '7', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '10', '7', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '11', '7', '".$_SESSION['logged_in']['username']."')");
 		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '12', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '1', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '2', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '3', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '4', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '5', '7', '".$_SESSION['logged_in']['username']."')");
+		$this->db->query("INSERT INTO payment (id_siswa, id_periode, bulan, jenis_payment, dibuat_oleh) VALUES ('".$id_siswa."', '".$id_periode."', '6', '7', '".$_SESSION['logged_in']['username']."')");
 	}
 
 	public function show_heregistrasi($id_periode){
@@ -260,9 +319,9 @@ class Payment_model extends CI_Model {
 	public function show_sum_pendaftaran($id_periode){
 		$hasil = $this->db->query("
 			SELECT 
-			(SELECT FORMAT(SUM(jumlah),0) from payment where id_periode = '5' and jenis_payment = '1') as TOTAL_PENDAFTARAN,
-			(SELECT FORMAT(SUM(jumlah),0) from payment where id_periode = '5' and jenis_payment = '2') as TOTAL_PANGKAL,
-			(SELECT FORMAT(SUM(jumlah - dibayar), 0) as PENDAFTARAN from payment where id_periode = '5' and jenis_payment = '2') as KEKURANGAN_PANGKAL
+			(SELECT FORMAT(SUM(jumlah),0) from payment where id_periode = '".$id_periode."' and jenis_payment = '1') as TOTAL_PENDAFTARAN,
+			(SELECT FORMAT(SUM(jumlah),0) from payment where id_periode = '".$id_periode."' and jenis_payment = '2') as TOTAL_PANGKAL,
+			(SELECT FORMAT(SUM(jumlah - dibayar), 0) as PENDAFTARAN from payment where id_periode = '".$id_periode."' and jenis_payment = '2') as KEKURANGAN_PANGKAL
 			from payment where id_periode = '".$id_periode."' and jenis_payment = '1' LIMIT 1");
 		return $hasil->result();
 	}
@@ -307,6 +366,32 @@ class Payment_model extends CI_Model {
 			}
 			return true;
 		}
+	}
+
+	public function show_summary_spp($id_siswa, $id_periode){
+		$hasil = $this->db->query("
+			SELECT bulan.urutan as URUTAN, bulan.singkat as B_SINGKAT, payment.singkat as P_SINGKAT, 
+			p.jenis_payment as JENIS_PAYMENT, p.catatan as CATATAN, p.status as STATUS
+			FROM payment p
+			INNER JOIN m_bulan bulan ON p.bulan = bulan.id
+			INNER JOIN m_payment payment ON p.jenis_payment = payment.id
+			WHERE id_siswa = '".$id_siswa."' AND id_periode = '".$id_periode."' AND p.jenis_payment = '7'
+			ORDER BY urutan ASC
+			");
+		return $hasil->result();
+	}
+
+	public function show_summary_adm($id_siswa, $id_periode){
+		$hasil = $this->db->query("
+			SELECT bulan.urutan as URUTAN, bulan.singkat as B_SINGKAT, payment.singkat as P_SINGKAT, payment.nama_payment as NAMA_PAYMENT, 
+			p.jenis_payment as JENIS_PAYMENT, p.catatan as CATATAN, p.status as STATUS
+			FROM payment p
+			INNER JOIN m_bulan bulan ON p.bulan = bulan.id
+			INNER JOIN m_payment payment ON p.jenis_payment = payment.id
+			WHERE id_siswa = '".$id_siswa."' AND id_periode = '".$id_periode."' AND NOT p.jenis_payment = '7'
+			ORDER BY p.id ASC
+			");
+		return $hasil->result();
 	}
 
 }

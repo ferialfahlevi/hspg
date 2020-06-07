@@ -55,7 +55,7 @@ class Routes extends CI_Controller {
 	}
 
 	public function user(){
-		$data['title'] = 'Data User';
+		$data['title'] = 'Manage User';
 		$data['menu'] = 'data';
 		$data['submenu'] = 'data_user';
 		$data['submenu2'] = '';

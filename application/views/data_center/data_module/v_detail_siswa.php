@@ -66,14 +66,14 @@
 								<div class="social-info">
 									<div class="row">
 										<div class="col-xs-4 text-center">
-											<?php foreach($data_siswa->result() as $row ):?>
+											<?php foreach($data_siswa->result() as $row ): $id_siswa = $row->id_siswa;?>
 												<a href="<?php echo base_url('Doc/form_registrasi/')?><?php echo $row->id_siswa; ?>" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-print"></i></a>
 											<?php endforeach; ?>
 											<span class="counts-text block">Cetak Formulir</span>
 										</div>
-										<div class="col-xs-4 text-center">
-											<a href="#" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-money"></i></a>
-											<span class="counts-text block">Kelola Pembayaran</span>
+										<div class="col-xs-4 text-center" id="kelola_pembayaran">
+											<!-- <a href="<?php echo base_url('Payment/payment/'.$id_siswa);?>" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-money"></i></a>
+											<span class="counts-text block">Kelola Pembayaran</span> -->
 										</div>
 										<div class="col-xs-4 text-center">
 											<a href="#" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-graduation-cap"></i></a>
@@ -1007,7 +1007,7 @@
 				type : "POST",
 				url  : "<?php echo base_url('Data/update_alamat_siswa')?>",
 				dataType : "JSON",
-				data : {id_siswa:id_siswa , alamat_siswa:alamat_siswa, kota:kota, kelurahan:kelurahan, kecamatan:kecamatan, provinsi:provinsi, kd_pos:kd_pos},
+				data : {id_siswa:id_siswa , alamat_siswa:alamat_siswa, kota:kota, kelurahan:kelurahan, kecamatan:kecamatan, provinsi:provinsi, kd_pos:kd_pos, nama_siswa:nama_siswa},
 				success: function(data){
 					if (data == true) {
 						notif_sukses('Mengupdate alamat');
@@ -1038,7 +1038,7 @@
 				type : "POST",
 				url  : "<?php echo base_url('Data/update_info_siswa')?>",
 				dataType : "JSON",
-				data : {id_siswa:id_siswa, status:status, jenis_pendidikan:jenis_pendidikan},
+				data : {id_siswa:id_siswa, status:status, jenis_pendidikan:jenis_pendidikan, nama_siswa:nama_siswa},
 				success: function(data){
 					if (data == true) {
 						notif_sukses('Mengupdate info');
@@ -1066,11 +1066,15 @@
 			success : function(data){
 				var i;
 				var nama_periode;
+				var html = '';
 				for(i=0; i<data.length; i++){
 					latest_periode = data[i].id;
 					nama_periode = data[i].nama_periode;
 				}
 				$('[name="periode_update"]').html(nama_periode);
+				html += '<a href="<?php echo base_url('Payment/payment/'.$id_siswa);?>/'+latest_periode+'" class="btn btn-default btn-icon-anim btn-circle btn-sm"><i class="fa fa-money"></i></a>'+
+				'<span class="counts-text block">Kelola Pembayaran</span>';
+				$('#kelola_pembayaran').html(html);
 			}
 		});
 	}

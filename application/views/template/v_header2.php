@@ -401,7 +401,7 @@
 							<a class="<?php if($submenu == 'data_pengajar'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/pengajar');?>">Pengajar dan Staff</a>
 						</li>
 						<li>
-							<a class="<?php if($submenu == 'data_user'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/user');?>">Data User</a>
+							<a class="<?php if($submenu == 'data_user'){ echo 'active-page';}?>" href="<?php echo base_url('Routes/user');?>">Manage User</a>
 						</li>
 					</ul>
 				</li>

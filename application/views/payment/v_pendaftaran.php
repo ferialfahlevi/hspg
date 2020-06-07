@@ -216,6 +216,13 @@
 		});
 	}
 
+	$('#generate_periode').on('change', function() {
+		var qID = this.value;
+		latest_periode = qID;
+		show_heregistrasi(latest_periode);
+		notif_sukses('Sukses menampilkan Heregistrasi', 'Jika total undefined mohon tekan tombol refresh');
+	});
+
 	dropdown_periode();
 	function dropdown_periode(){
 		$.ajax({
@@ -235,5 +242,17 @@
 
 	function refresh(){
 		show_heregistrasi(latest_periode);
+	}
+
+	function notif_sukses(message, id){
+		$.toast({
+			heading: message,
+			text: id,
+			position: 'top-right',
+			loaderBg:'#f2b701',
+			icon: 'success',
+			hideAfter: 5000, 
+			stack: 6
+		});
 	}
 </script>

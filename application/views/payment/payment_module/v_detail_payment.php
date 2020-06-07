@@ -17,19 +17,17 @@
 							</div>
 							<div class="panel-heading">
 								<div class="pull-left">
-									<a href="<?php echo base_url('Payment/payment');?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Data Payment</a>
+									<a href="<?php echo base_url('Payment/payment');?>" class="btn btn-info"><i class="fa fa-arrow-left"></i> Data Payment</a>
 								</div>
 								<div class="pull-right">
-									<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle btn-sm" type="button" onclick="javascript:refresh_payment()" data-toggle='tooltip' data-placement='top' title='REFRESH'><i class="zmdi zmdi-replay"></i></button>
+									<button aria-expanded="false" data-toggle="dropdown" class="btn btn-info btn-circle btn-sm" type="button" onclick="javascript:refresh_payment()" data-toggle='tooltip' data-placement='top' title='REFRESH'><i class="zmdi zmdi-replay txt-light"></i></button>
+									<a data-toggle="modal" data-target="#generate_invoice" class="btn btn-info btn-circle btn-sm" type="button" data-toggle='tooltip' data-placement='top' title='CETAK INVOICE'> <i class="fa fa-print txt-light"></i></a>
+									<a data-toggle="modal" data-target="#quick_update" class="btn btn-info btn-circle btn-sm" type="button" data-toggle='tooltip' data-placement='top' title='QUICK EDIT NOMINAL'> <i class="fa fa-edit txt-light"></i></a>
 									<div class="inline-block dropdown">
-										<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-icon-anim btn-circle dropdown-toggle btn-sm" type="button"><i class="zmdi zmdi-more-vert"></i></button>
-										<ul class="dropdown-menu bullet dropdown-menu-right"  role="menu">
-											<li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#modal_new_payment" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>Generate Payment</a></li>
+										<button aria-expanded="false" data-toggle="dropdown" class="btn btn-info btn-circle btn-sm" type="button"><i class="fa fa-ellipsis-v txt-light"></i></button>
+										<ul class="dropdown-menu bullet dropdown-menu-right"  role="menu" id="list_periode">
 										</ul>
 									</div>
-									<a data-toggle="modal" data-target="#generate_invoice" class="btn btn-default btn-icon-anim btn-circle btn-sm" data-toggle='tooltip' data-placement='top' title='CETAK INVOICE'><i class="fa fa-print"></i></a>
-									<a data-toggle="modal" data-target="#quick_update" class="btn btn-default btn-icon-anim btn-circle btn-sm" data-toggle='tooltip' data-placement='top' title='QUICK EDIT NOMINAL'><i class="fa fa-edit"></i></a>
-									<!-- href="<?php echo base_url('Doc/form_registrasi/')?><?php echo $this->uri->segment('3');?>" -->
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -41,7 +39,7 @@
 												<form class="form-horizontal" role="form">
 													<div class="form-body">
 														<div class="pull-left">
-															<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
+															<h6 class="txt-dark capitalize-font" id="ringkasan_spp"><i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
@@ -55,31 +53,17 @@
 															<table class="table table-hover mb-0">
 																<thead>
 																	<tr id="show_spp">
-																		<?php $nilai = 1;?>
-																		<?php foreach($spp->result() as $row ):?>
-																			<th class="txt-dark"><?php echo $row->SINGKAT; ?></th>
-																		<?php endforeach; ?>
 																	</tr>
 																</thead>
 																<tbody>
 																	<tr id="show_spp_detail">
-																		<?php $nilai = 1;?>
-																		<?php foreach($spp->result() as $row ):?>
-																			<?php if($row->STATUS == '1'){ ?>
-																				<td><span class="label label-primary" data-toggle='tooltip' data-placement='top' title='Sudah Dibayar'><i class="fa fa-check"></i></span></td>
-																			<?php } else if($row->STATUS == '0') { ?>
-																				<td><span class="label label-danger" data-toggle='tooltip' data-placement='top' title='Belum Dibayar'><i class="fa fa-times"></i></span></td>
-																			<?php } else if($row->STATUS == '2') { ?>
-																				<td><span class="label label-warning" data-toggle='tooltip' data-placement='top' title='<?php echo $row->KEKURANGAN; ?>'><i class="fa fa-exclamation"></i></span></td>
-																			<?php }?>
-																		<?php endforeach; ?>
 																	</tr>
 																</tbody>
 															</table>
 														</div>	
 														<div class="seprator-block"></div>
 														<div class="pull-left">
-															<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran Non SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
+															<h6 class="txt-dark capitalize-font" id="ringkasan_non_spp"><i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran Administrasi <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
@@ -93,31 +77,17 @@
 															<table class="table table-hover mb-0">
 																<thead>
 																	<tr id="show_non_spp">
-																		<?php $nilai = 1;?>
-																		<?php foreach($non_spp->result() as $row ):?>
-																			<th class="txt-dark"><?php echo $row->PEMBAYARAN; ?></th>
-																		<?php endforeach; ?>
 																	</tr>
 																</thead>
 																<tbody>
 																	<tr id="show_non_spp_detail">
-																		<?php $nilai = 1;?>
-																		<?php foreach($non_spp->result() as $row ):?>
-																			<?php if($row->STATUS == '1'){ ?>
-																				<td><span class="label label-primary"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '0') { ?>
-																				<td><span class="label label-danger"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '2') { ?>
-																				<td><span class="label label-warning" data-toggle='tooltip' data-placement='top' title='Belum Lunas'><?php echo $row->KEKURANGAN; ?></i></span></td>
-																			<?php }?>
-																		<?php endforeach; ?>
 																	</tr>
 																</tbody>
 															</table>
 														</div>	
 														<div class="seprator-block"></div>
 														<div class="pull-left">
-															<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Pembayaran SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
+															<h6 class="txt-dark capitalize-font" id="detail_spp"><i class="zmdi zmdi-account mr-10"></i>Pembayaran SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
@@ -140,61 +110,6 @@
 																	</tr>
 																</thead>
 																<tbody id="detail_show_spp_detail">
-																	<?php $nilai = 1;?>
-																	<?php foreach($spp->result() as $row ):?>
-																		<tr>
-																			<td><?php echo $row->ID; ?></td>
-																			<td><?php echo $row->BULAN2; ?></td>
-																			<td>Rp. <?php echo $row->JUMLAH; ?></td>
-																			<td>Rp. <?php echo $row->KEKURANGAN; ?></td>
-																			<?php if($row->STATUS == '1'){ ?>
-																				<td><span class="label label-primary"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '0') { ?>
-																				<td><span class="label label-danger"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '2') { ?>
-																				<td><span class="label label-warning"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else { ?>
-																				<td><?php echo $row->CATATAN; ?></td>
-																			<?php }?>
-																			<td>
-																				<div class="btn-group">
-																					<div class="dropdown">
-																						<!-- btn btn-default btn-icon-anim btn-circle dropdown-toggle -->
-																						<button aria-expanded="false" data-toggle="dropdown" class="btn btn-success btn-circle dropdown-toggle" type="button"> <i class="fa fa-usd"></i></button>
-																						<ul role="menu" class="dropdown-menu">
-																							<?php if($row->STATUS == '2') { ?>
-																								<li><a href="javascript:set_lunas(<?php echo $row->ID?>);" name="set_lunas">Bayar Lunas</a></li>
-																								<!-- <li><a href="javascript:;" data="<?php echo $row->ID?>" name="update_payment">Bayar Sebagian</a></li> -->
-																								<li class="divider"></li>
-																							<?php }?>
-																							<?php if($row->STATUS == '0') { ?>
-																								<li><a href="javascript:set_lunas(<?php echo $row->ID?>);" name="set_lunas">Bayar Lunas</a></li>
-																								<!-- <li><a href="javascript:;" data="<?php echo $row->ID?>" name="update_payment">Bayar Sebagian</a></li> -->
-																								<li><a href="javascript:edit_payment_button(<?php echo $row->ID?>);" name="edit_payment">Edit Pembayaran</a></li>
-																								<li class="divider"></li>
-																							<?php }?>
-																							<li><a href="javascript:reset_payment(<?php echo $row->ID?>);" name="reset_payment">Reset Pembayaran</a></li>
-																							<li><a href="javascript:log_payment(<?php echo $row->ID?>);" name="log_payment">Lihat Log</a></li>
-																						</ul>
-																					</div>
-																				</div>
-																			</td>
-																		</tr>
-																		<?php $nilai++;?>
-																	<?php endforeach; ?>
-																	<?php if($nilai == '1'){
-																		echo '<tr>
-																		<td>Belum ada SPP</td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		</tr>';
-																	} ?>
 																</tbody>
 															</table>
 														</div>		
@@ -202,7 +117,7 @@
 														<div class="seprator-block"></div>
 
 														<div class="pull-left">
-															<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Pembayaran Non SPP <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
+															<h6 class="txt-dark capitalize-font" id="detail_non_spp"><i class="zmdi zmdi-account mr-10"></i>Pembayaran Administrasi <?php foreach($periode->result() as $row ):?><?php echo $row->PERIODE;?><?php endforeach; ?></h6>
 														</div>
 														<div class="pull-right">
 															<?php foreach($nama_siswa->result() as $row ):?>
@@ -224,60 +139,6 @@
 																	</tr>
 																</thead>
 																<tbody id="detail_show_non_spp_detail">
-																	<?php $nilai2 = 1;?>
-																	<?php foreach($non_spp->result() as $row ):?>
-																		<tr>
-																			<td><?php echo $row->ID; ?></td>
-																			<td><?php echo $row->PEMBAYARAN; ?></td>
-																			<td>Rp. <?php echo $row->JUMLAH; ?></td>
-																			<td>Rp. <?php echo $row->KEKURANGAN; ?></td>
-																			<?php if($row->STATUS == '1'){ ?>
-																				<td><span class="label label-primary"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '0') { ?>
-																				<td><span class="label label-danger"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else if($row->STATUS == '2') { ?>
-																				<td><span class="label label-warning"><?php echo $row->CATATAN; ?></span></td>
-																			<?php } else { ?>
-																				<td><?php echo $row->CATATAN; ?></td>
-																			<?php }?>
-																			<td>
-																				<div class="btn-group">
-																					<div class="dropup">
-																						<button aria-expanded="false" data-toggle="dropdown" class="btn btn-success btn-circle dropdown-toggle " type="button"><i class="fa fa-usd"></i></button>
-																						<ul role="menu" class="dropdown-menu">
-																							<?php if($row->STATUS == '2') { ?>
-																								<li><a href="javascript:set_lunas(<?php echo $row->ID?>);" name="set_lunas">Bayar Lunas</a></li>
-																								<li><a href="javascript:update_payment_button(<?php echo $row->ID?>);"name="update_payment">Bayar Sebagian</a></li>
-																								<li class="divider"></li>
-																							<?php }?>
-																							<?php if($row->STATUS == '0') { ?>
-																								<li><a href="javascript:set_lunas(<?php echo $row->ID?>);" name="set_lunas">Bayar Lunas</a></li>
-																								<li><a href="javascript:update_payment_button(<?php echo $row->ID?>);"name="update_payment">Bayar Sebagian</a></li>
-																								<li class="divider"></li>
-																								<li><a href="javascript:edit_payment_button(<?php echo $row->ID?>);" name="edit_payment">Edit Pembayaran</a></li>
-																							<?php }?>
-																							<li><a href="javascript:reset_payment(<?php echo $row->ID?>);" name="reset_payment">Reset Pembayaran</a></li>
-																							<li><a href="javascript:log_payment(<?php echo $row->ID?>);" name="log_payment">Lihat Log</a></li>
-																						</ul>
-																					</div>
-																				</div>
-																			</td>
-																		</tr>
-																		<?php $nilai2++;?>
-																	<?php endforeach; ?>
-																	<?php if($nilai2 == '1'){
-																		echo '<tr>
-																		<td>Belum ada Pembayaran</td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		</tr>';
-																	} ?>
 																</tbody>
 															</table>
 														</div>	
@@ -599,11 +460,51 @@
 	</div>
 </div>
 <script type="text/javascript">
-	get_spp();
-	function get_spp(){
+	var latest_periode;
+	periode();
+	function periode(){
+		$.ajax({
+			url     : '<?php echo base_url();?>Payment/latest_periode',
+			async   : false,
+			dataType    : 'json',
+			success : function(data){
+				var i;
+				for(i=0; i<data.length; i++){
+					latest_periode = data[i].id;
+				}
+			}
+		});
+	}
+
+	document.getElementById("btn_generate_periode").disabled = true;
+	/*NOTIF*/
+	function notif_sukses(message, id){
+		$.toast({
+			heading: message,
+			text: 'Payment ID: '+id,
+			position: 'top-right',
+			loaderBg:'#f2b701',
+			icon: 'success',
+			hideAfter: 3500, 
+			stack: 6
+		});
+	}
+	function notif_gagal(message, id){
+		$.toast({
+			heading: message,
+			text: 'Payment ID: '+id,
+			position: 'top-right',
+			loaderBg:'#f2b701',
+			icon: 'error',
+			hideAfter: 3500
+		});
+	}
+
+	/*GET SPP*/
+	get_spp(latest_periode);
+	function get_spp(periode_dipilih){
 		id = '<?php echo $this->uri->segment('3');?>';
-		periode = '<?php echo $this->uri->segment('4');?>';
-		// alert(id+' '+periode);
+		periode = periode_dipilih;
 		$.ajax({
 			type    : "POST",
 			url     : "<?php echo base_url('Payment/data_spp');?>",
@@ -655,8 +556,9 @@
 						'<li class="divider"></li>';
 					} 
 					show_detail += '<li><a href="javascript:reset_payment('+data[i].ID+');" name="reset_payment">Reset Pembayaran</a></li>'+
-					'<li><a href="javascript:log_payment('+data[i].ID+');" name="log_payment">Lihat Log</a></li>'+
+					/*'<li><a href="javascript:log_payment('+data[i].ID+');" name="log_payment">Lihat Log</a></li>'+*/
 					'</ul>'+
+					'<button class="btn btn-success btn-circle dropdown-toggle" onclick="javascript:log_payment('+data[i].ID+');" type="button" data-toggle="tooltip" data-placement="top" title="LOG Pembayaran"> <i class="fa fa-history"></i></button>'+
 					'</div>'+
 					'</div>'+
 					'</td>'+
@@ -671,8 +573,6 @@
 					'<div class="checkbox checkbox-success">'+
 					'<input name="nominal_edit" id="checkbox_nominal'+i+'" type="checkbox" value="'+data[i].ID+'">'+
 					'<label for="checkbox_nominal'+i+'">'+
-					// data[i].PEMBAYARAN+
-					// 'checkbox'+i+
 					'Tambahkan'+
 					'</label>'+
 					'</div>'+
@@ -687,40 +587,11 @@
 		});
 	}
 
-	$('#btn_edit_nominal').on('click', function() {
-		/*alert("CEK");
-		var checkedValue = document.querySelector('.invoice_checkbox:checked').value;
-		alert(checkedValue);*/
-		var nominal = '0';
-		var id = '<?php echo $this->uri->segment('3');?>';
-		nominal =$('#edit_nominal').val();
-		var ck_string = "";
-		$.each($("input[name='nominal_edit']:checked"), function(){  
-			// ck_string += "~"+$(this).val();
-			ck_string += " or id = '"+$(this).val()+"'";
-		});
-		if (ck_string){
-			ck_string = ck_string .substring(4);
-			/*alert(ck_string);
-			alert('nominal'+nominal);*/
-			$.ajax({
-				type : "POST",
-				url     : '<?php echo base_url('Payment/edit_nominal');?>',
-				// dataType : "JSON",
-				data : {kondisi:ck_string, nominal:nominal},
-				success: function(data){
-					get_spp();
-					notif_sukses('Mengupdate nominal pembayaran', '');
-				}
-			});
-		}else{
-			alert('Pilih setidaknya satu spp');
-		}
-	});
-
-	function get_non_spp(){
+	get_non_spp(latest_periode);
+	function get_non_spp(periode_dipilih){
 		id = '<?php echo $this->uri->segment('3');?>';
-		periode = '<?php echo $this->uri->segment('4');?>';
+		periode = periode_dipilih;
+		// '<?php echo $this->uri->segment('4');?>';
 		// alert(id+' '+periode);
 		$.ajax({
 			type    : "POST",
@@ -771,8 +642,8 @@
 						'<li class="divider"></li>';
 					} 
 					show_detail += '<li><a href="javascript:reset_payment('+data[i].ID+');" name="reset_payment">Reset Pembayaran</a></li>'+
-					'<li><a href="javascript:log_payment('+data[i].ID+');" name="log_payment">Lihat Log</a></li>'+
 					'</ul>'+
+					'<button class="btn btn-success btn-circle dropdown-toggle" onclick="javascript:log_payment('+data[i].ID+');" type="button" data-toggle="tooltip" data-placement="top" title="LOG Pembayaran"> <i class="fa fa-history"></i></button>'+
 					'</div>'+
 					'</div>'+
 					'</td>'+
@@ -785,6 +656,64 @@
 		});
 	}
 
+	dropdown_periode();
+	function dropdown_periode(){
+		$.ajax({
+			url     : '<?php echo base_url();?>Payment/dropdown_periode',
+			async   : false,
+			dataType: 'json',
+			success : function(data){
+				var html = '';
+				var i;
+				var satu = 1;
+				for(i=0; i<data.length; i++){
+					$('#generate_periode').append(new Option(data[i].nama_periode, data[i].id));
+					
+					if (i > 0) {
+						html += 
+						'<li role="presentation"><a href="javascript:periode_ke('+data[i].id+')" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>PEMBAYARAN '+data[i].nama_periode+'</a></li>';
+					} else {
+						html += 
+						'<li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#modal_new_payment" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>Memunculkan Payment</a></li><li class="divider"></li>';
+						html += 
+						'<li role="presentation"><a href="javascript:periode_ke('+data[i].id+')" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>PEMBAYARAN '+data[i].nama_periode+'</a></li>';
+					}
+				}
+				$('#list_periode').html(html);
+			}
+		});
+	}
+
+	function periode_ke(id){
+		latest_periode = id;
+		get_spp(latest_periode);
+		get_non_spp(latest_periode);
+		show_unpaid(latest_periode);
+		var periode;
+		/*alert(nama_periode)*/
+		$.ajax({
+			type    : "POST",
+			url     : "<?php echo base_url('Payment/periode_ke/');?>",
+			dataType    : 'json',
+			data : {id:id},
+			success : function(data){
+				var i;
+				for(i=0; i<data.length; i++){
+					notif_sukses('Pembayaran untuk '+data[i].NAMA_PERIODE, '');
+					$('#ringkasan_spp').html('<i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran SPP '+data[i].PERIODE);
+					$('#ringkasan_non_spp').html('<i class="zmdi zmdi-account mr-10"></i>Ringkasan Pembayaran Administrasi '+data[i].PERIODE);
+					$('#detail_spp').html('<i class="zmdi zmdi-account mr-10"></i>Pembayaran SPP '+data[i].PERIODE);
+					$('#detail_non_spp').html('<i class="zmdi zmdi-account mr-10"></i>Pembayaran Administrasi '+data[i].PERIODE);
+				}
+				// alert(data[0].nama_periode);
+			},
+			error: function(xhr, status, error){
+				var errorMessage = xhr.status + ': ' + xhr.statusText;
+				notif_gagal(errorMessage, id);
+            }
+         });
+	}
+
 	function quick_set(nilai) {
 		$('#amount').val(nilai);
 	}
@@ -793,48 +722,11 @@
 		$('#jumlah_payment_ed').val(nilai);
 	}
 
-	document.getElementById("btn_generate_periode").disabled = true;
-
+	/*REFRESH*/
 	function refresh_payment(){
-		// location.reload();
-		get_spp();
-		get_non_spp();
-		show_unpaid();
-		/*notif_refresh('Sukses Memperbarui Data');*/
-	}
-
-	/*function notif_refresh(message){
-		$.toast({
-			heading: message,
-			text: '',
-			position: 'top-right',
-			loaderBg:'#f2b701',
-			icon: 'success',
-			hideAfter: 3500, 
-			stack: 6
-		});
-	}*/
-
-	function notif_sukses(message, id){
-		$.toast({
-			heading: message,
-			text: 'Payment ID: '+id,
-			position: 'top-right',
-			loaderBg:'#f2b701',
-			icon: 'success',
-			hideAfter: 3500, 
-			stack: 6
-		});
-	}
-	function notif_gagal(message, id){
-		$.toast({
-			heading: message,
-			text: 'Payment ID: '+id,
-			position: 'top-right',
-			loaderBg:'#f2b701',
-			icon: 'error',
-			hideAfter: 3500
-		});
+		get_spp(latest_periode);
+		get_non_spp(latest_periode);
+		show_unpaid(latest_periode);
 	}
 
 	function edit_payment(){
@@ -855,10 +747,8 @@
 				}
 			},
 			error: function(xhr, status, error){
-				var errorMessage = xhr.status + ': ' + xhr.statusText
-				// alert('Error - ' + errorMessage);
+				var errorMessage = xhr.status + ': ' + xhr.statusText;
 				notif_gagal(errorMessage, id);
-                    // $('#errorMessage').html(errorMessage);
                 }
             });
 		refresh_payment();
@@ -876,55 +766,12 @@
 				alert("Sukses men-generate payment");
 			},
 			error: function(xhr, status, error){
-				var errorMessage = xhr.status + ': ' + xhr.statusText
+				var errorMessage = xhr.status + ': ' + xhr.statusText;
 				alert('Error - ' + errorMessage);
-                    // $('#errorMessage').html(errorMessage);
                 }
             });
 		refresh_payment();
 	}
-
-	dropdown_periode();
-	function dropdown_periode(){
-		$.ajax({
-			url     : '<?php echo base_url();?>Payment/dropdown_periode',
-			async   : false,
-			dataType: 'json',
-			success : function(data){
-				var html = '';
-				var i;
-				var satu = 1;
-				for(i=0; i<data.length; i++){
-					$('#generate_periode').append(new Option(data[i].nama_periode, data[i].id));
-				}
-			}
-		});
-	}
-
-	$('#generate_periode').on('change', function() {
-		var qID = this.value;
-		var id_siswa	=$('#id_siswa').val();
-		if (qID == '0') {
-			$('#status_periode').html("INVALID PERIODE");
-			document.getElementById("btn_generate_periode").disabled = true;
-		} else{
-			$.ajax({
-				type    : "POST",
-				url     : "<?php echo base_url('Payment/check_periode/');?>",
-				dataType    : 'json',
-				data : {id_siswa:id_siswa, id_periode:qID},
-				success : function(data){
-					if (data == true) {
-						$('#status_periode').html("Data Periode Sudah ada");
-						document.getElementById("btn_generate_periode").disabled = true;
-					} else {
-						$('#status_periode').html(" ");
-						document.getElementById("btn_generate_periode").disabled = false;
-					}
-				}
-			});
-		}
-	});
 
 	function set_lunas(id){
 		var message = 'Sukses melunaskan pembayaran';
@@ -1058,7 +905,6 @@
 			alert('Pilih setidaknya satu pembayaran');
 		}
 	});
-
 	$('#update_payment').on('click', function() {
 		var message = 'Sukses meng-update pembayaran';
 		var id	=$('#id_payment').val();
@@ -1122,6 +968,60 @@
 			}
 		}
 		$('#modal_update').modal('hide');
+	});
+	$('#btn_edit_nominal').on('click', function() {
+		/*alert("CEK");
+		var checkedValue = document.querySelector('.invoice_checkbox:checked').value;
+		alert(checkedValue);*/
+		var nominal = '0';
+		var id = '<?php echo $this->uri->segment('3');?>';
+		nominal =$('#edit_nominal').val();
+		var ck_string = "";
+		$.each($("input[name='nominal_edit']:checked"), function(){  
+			// ck_string += "~"+$(this).val();
+			ck_string += " or id = '"+$(this).val()+"'";
+		});
+		if (ck_string){
+			ck_string = ck_string .substring(4);
+			// alert(ck_string);
+			// alert(id);
+			$.ajax({
+				type : "POST",
+				url     : '<?php echo base_url('Payment/edit_nominal');?>',
+				// dataType : "JSON",
+				data : {kondisi:ck_string, nominal:nominal, id:id},
+				success: function(data){
+					get_spp(latest_periode);
+					notif_sukses('Mengupdate nominal pembayaran', '');
+				}
+			});
+		}else{
+			alert('Pilih setidaknya satu spp');
+		}
+	});
+	$('#generate_periode').on('change', function() {
+		var qID = this.value;
+		var id_siswa	=$('#id_siswa').val();
+		if (qID == '0') {
+			$('#status_periode').html("INVALID PERIODE");
+			document.getElementById("btn_generate_periode").disabled = true;
+		} else{
+			$.ajax({
+				type    : "POST",
+				url     : "<?php echo base_url('Payment/check_periode/');?>",
+				dataType    : 'json',
+				data : {id_siswa:id_siswa, id_periode:qID},
+				success : function(data){
+					if (data == true) {
+						$('#status_periode').html("Data Periode Sudah ada");
+						document.getElementById("btn_generate_periode").disabled = true;
+					} else {
+						$('#status_periode').html(" ");
+						document.getElementById("btn_generate_periode").disabled = false;
+					}
+				}
+			});
+		}
 	});
 
 	function update_log(id_payment, nominal, jenis_log){

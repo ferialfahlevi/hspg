@@ -27,14 +27,14 @@
 								<div class="panel-body">
 									<div class="table-wrap">
 										<div class="table-responsive">
-											<table id="datable_2" class="table table-hover mb-0">
+											<table id="datable_1" class="table table-hover display  pb-30" >
 												<thead>
 													<tr>
 														<th class="txt-dark">NAMA</th>
 														<th class="txt-dark">NO INDUK</th>
 														<th class="txt-dark">KELAS</th>
 														<th class="txt-dark">STATUS</th>
-														<th class="txt-dark">AKSI</th>
+														<th class="txt-dark"></th>
 													</tr>
 												</thead>
 												<tbody id="show_table_siswa">
@@ -73,7 +73,7 @@
 				var status = '';
 				for(i=0; i<data.length; i++){
 					html += 
-					'<tr">';
+					'<tr onclick="see_student('+data[i].ID+')">';
 					if (data[i].PENDIDIKAN == '3') {
 						html += '<td class="txt-danger">'+data[i].NAMA+'</td>';
 					} else if (data[i].PENDIDIKAN == '2') {
@@ -103,6 +103,10 @@
 				$('#show_table_siswa').html(html);
 			}
 		});
+	}
+
+	function see_student(id){
+		window.location.assign("<?php echo base_url('Data/siswa/');?>"+id);
 	}
 
 	$('#button_clear_siswa').on('click', function() {
